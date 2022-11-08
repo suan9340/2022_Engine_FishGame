@@ -7,9 +7,8 @@ using UnityEngine;
 [Serializable]
 public class FishInformationSO : ScriptableObject
 {
-    //[SerializeField] private List<Fishs> fish = new List<Fishs>();
-
     public string fishname;
-    public float speed;
     public DefineManager.FishRating rating = DefineManager.FishRating.BRONZE;
+    public float speed;
+    public Color outlineColor;
 }

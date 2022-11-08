@@ -96,8 +96,8 @@ public class Outline : MonoBehaviour
         renderers = GetComponentsInChildren<Renderer>();
 
         // Instantiate outline materials
-        outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineMask"));
-        outlineFillMaterial = Instantiate(Resources.Load<Material>(@"Materials/OutlineFill"));
+        outlineMaskMaterial = Instantiate(Resources.Load<Material>(@"Outline/Materials/OutlineMask"));
+        outlineFillMaterial = Instantiate(Resources.Load<Material>(@"Outline/Materials/OutlineFill"));
 
         outlineMaskMaterial.name = "OutlineMask (Instance)";
         outlineFillMaterial.name = "OutlineFill (Instance)";
@@ -113,7 +113,6 @@ public class Outline : MonoBehaviour
     {
         foreach (var renderer in renderers)
         {
-
             // Append outline shaders
             var materials = renderer.sharedMaterials.ToList();
 
