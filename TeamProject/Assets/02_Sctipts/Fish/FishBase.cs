@@ -46,21 +46,23 @@ public class FishBase : MonoBehaviour
     {
         if (fishInfo != null) return;
 
-        if (rating == DefineManager.FishRating.BRONZE)
+        switch (rating)
         {
-            fishInfo = Resources.Load<FishInformationSO>("SO/Bronze");
-        }
-        else if (rating == DefineManager.FishRating.SLIVER)
-        {
-            fishInfo = Resources.Load<FishInformationSO>("SO/Sliver");
-        }
-        else if (rating == DefineManager.FishRating.PLATINUM)
-        {
-            fishInfo = Resources.Load<FishInformationSO>("SO/Platinum");
-        }
-        else if (rating == DefineManager.FishRating.DIAMOND)
-        {
-            fishInfo = Resources.Load<FishInformationSO>("SO/Diamond");
+            case DefineManager.FishRating.BRONZE:
+                fishInfo = Resources.Load<FishInformationSO>("SO/Bronze");
+                break;
+
+            case DefineManager.FishRating.SLIVER:
+                fishInfo = Resources.Load<FishInformationSO>("SO/Sliver");
+                break;
+
+            case DefineManager.FishRating.PLATINUM:
+                fishInfo = Resources.Load<FishInformationSO>("SO/Platinum");
+                break;
+
+            case DefineManager.FishRating.DIAMOND:
+                fishInfo = Resources.Load<FishInformationSO>("SO/Diamond");
+                break;
         }
     }
 
@@ -96,6 +98,8 @@ public class FishBase : MonoBehaviour
     #region LineRender_Charging
     private void ChargingLineRenderUpdate()
     {
+        if (!isMousePointOn) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             isCharging = true;
