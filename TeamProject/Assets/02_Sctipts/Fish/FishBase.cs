@@ -11,15 +11,22 @@ public class FishBase : MonoBehaviour
     [Space(30)]
     public FishInformationSO fishInfo;
 
-    public bool isMousePointOn = false;
-    public bool isCharging = false;
+    private bool isMousePointOn = false;
+    private bool isCharging = false;
 
     private Vector3 startPos = Vector3.zero;
     private Vector3 endPos = Vector3.zero;
+    private Vector3 resetPos = Vector3.zero;
 
+    public Vector2 force = Vector3.zero;
+
+    public Vector2 minPower;
+    public Vector2 maxPower;
 
     private Outline outline;
-    private LineRenderer lineRenderer;
+    public LineRenderer lineRenderer;
+    private Rigidbody myrigid;
+    private FishManagerSO fishManagerSO;
 
     private void Awake()
     {
@@ -35,8 +42,14 @@ public class FishBase : MonoBehaviour
 
     private void Cashing()
     {
-        outline = GetComponent<Outline>();
-        lineRenderer = GetComponentInChildren<LineRenderer>();
+        outline = GetComponentInChildren<Outline>();
+        myrigid = GetComponent<Rigidbody>();
+
+        if (lineRenderer == null)
+        {
+            lineRenderer = GameObject.Find("ChargingLine").GetComponent<LineRenderer>();
+        }
+        //lineRenderer = GetComponentInChildren<LineRenderer>();
     }
 
     /// <summary>
@@ -64,6 +77,8 @@ public class FishBase : MonoBehaviour
                 fishInfo = Resources.Load<FishInformationSO>("SO/Diamond");
                 break;
         }
+
+        fishManagerSO = Resources.Load<FishManagerSO>("SO/FishManager");
     }
 
 
@@ -87,6 +102,7 @@ public class FishBase : MonoBehaviour
 
     private void CheckFishOutline(bool _boolen)
     {
+        if (fishManagerSO.currrentFish != null) return;
         if (isMousePointOn == _boolen) return;
 
         isMousePointOn = _boolen;
@@ -102,32 +118,66 @@ public class FishBase : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            isCharging = true;
-            lineRenderer.enabled = true;
-            //startPos = MouseScreenValue();
-            startPos = new Vector3(transform.position.x, transform.position.y, 0f);
-            lineRenderer.SetPosition(0, startPos);
+            MouseClick();
         }
 
         if (Input.GetMouseButton(0))
         {
-            endPos = MouseScreenValue();
-            lineRenderer.SetPosition(1, endPos);
+            MouseDrag();
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            lineRenderer.enabled = false;
-            isCharging = false;
-
-            CheckFishOutline(false);
+            MouseUp();
         }
+    }
+
+    private void MouseClick()
+    {
+        isCharging = true;
+        lineRenderer.enabled = true;
+
+        fishManagerSO.currrentFish = fishInfo;
+
+        startPos = new Vector3(transform.position.x, transform.position.y, 0f);
+        lineRenderer.SetPosition(0, startPos);
+    }
+
+    private void MouseDrag()
+    {
+        LookAtShootDir();
+        endPos = MouseScreenValue();
+        lineRenderer.SetPosition(1, endPos);
+    }
+
+    private void MouseUp()
+    {
+        lineRenderer.enabled = false;
+        isCharging = false;
+        fishManagerSO.currrentFish = null;
+
+        lineRenderer.SetPosition(0, resetPos);
+        lineRenderer.SetPosition(1, resetPos);
+
+
+        force = new Vector2(Mathf.Clamp(startPos.x - endPos.x, minPower.x, maxPower.x),
+                Mathf.Clamp(startPos.y - endPos.y, minPower.y, maxPower.y));
+        myrigid.AddForce(force * fishInfo.speed, ForceMode.Impulse);
+
+        CheckFishOutline(false);
     }
 
     private Vector3 MouseScreenValue()
     {
         Vector3 _pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
         return _pos;
+    }
+
+    private void LookAtShootDir()
+    {
+        Vector3 _dir = startPos - endPos;
+
+
     }
     #endregion
 }
