@@ -9,4 +9,5 @@ public class FishManagerSO : ScriptableObject
 {
     [Header("CurrentFish")]
     public FishInformationSO currrentFish;
+    public FishInformationSO mouseOnFish;
 }

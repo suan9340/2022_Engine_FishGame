@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3426400424876767061
+--- !u!1 &2562034716655457390
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2650040334556769775}
-  - component: {fileID: 1398664765235634762}
-  - component: {fileID: 3786957157118334592}
-  - component: {fileID: 1398664765235634757}
+  - component: {fileID: 2938033250306084564}
+  - component: {fileID: 2263663793135993201}
+  - component: {fileID: 4075424992099579323}
+  - component: {fileID: 2263663793135993214}
+  - component: {fileID: 2263663793135993215}
   m_Layer: 0
-  m_Name: FishV3
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2650040334556769775
+--- !u!4 &2938033250306084564
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3426400424876767061}
+  m_GameObject: {fileID: 2562034716655457390}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5709134162659895268}
+  m_Father: {fileID: 4844117612899239135}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1398664765235634762
+--- !u!33 &2263663793135993201
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3426400424876767061}
+  m_GameObject: {fileID: 2562034716655457390}
   m_Mesh: {fileID: 7834934524071737294, guid: ae51ad94fa7d3764d957aa512d506d00, type: 3}
---- !u!23 &3786957157118334592
+--- !u!23 &4075424992099579323
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3426400424876767061}
+  m_GameObject: {fileID: 2562034716655457390}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,13 +85,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1398664765235634757
+--- !u!114 &2263663793135993214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3426400424876767061}
+  m_GameObject: {fileID: 2562034716655457390}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
@@ -102,7 +103,21 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!1 &4931788940317539678
+--- !u!64 &2263663793135993215
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2562034716655457390}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7834934524071737294, guid: ae51ad94fa7d3764d957aa512d506d00, type: 3}
+--- !u!1 &5220256775795826277
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,10 +125,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5709134162659895268}
-  - component: {fileID: 4931788940317539675}
-  - component: {fileID: 4931788940317539672}
-  - component: {fileID: 4931788940317539673}
+  - component: {fileID: 4844117612899239135}
+  - component: {fileID: 5220256775795826272}
+  - component: {fileID: 5220256775795826275}
+  - component: {fileID: 5220256775795826274}
   m_Layer: 0
   m_Name: Diamond_Fish
   m_TagString: Untagged
@@ -121,29 +136,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5709134162659895268
+--- !u!4 &4844117612899239135
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4931788940317539678}
+  m_GameObject: {fileID: 5220256775795826277}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.99, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalPosition: {x: -10.04, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2650040334556769775}
+  - {fileID: 2938033250306084564}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &4931788940317539675
+--- !u!54 &5220256775795826272
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4931788940317539678}
+  m_GameObject: {fileID: 5220256775795826277}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -151,28 +166,28 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
---- !u!65 &4931788940317539672
+--- !u!65 &5220256775795826275
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4931788940317539678}
+  m_GameObject: {fileID: 5220256775795826277}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.0359232, y: 0.29308966, z: 0.11761609}
   m_Center: {x: 0.05498632, y: -0.03918491, z: 0}
---- !u!114 &4931788940317539673
+--- !u!114 &5220256775795826274
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4931788940317539678}
+  m_GameObject: {fileID: 5220256775795826277}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef88ab0c90fbb8740bd2669435edc673, type: 3}
@@ -180,9 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rating: 3
   fishInfo: {fileID: 0}
-  isMousePointOn: 0
-  isCharging: 0
   force: {x: 0, y: 0}
   minPower: {x: 0, y: 0}
   maxPower: {x: 0, y: 0}
+  isMoving: 0
   lineRenderer: {fileID: 0}

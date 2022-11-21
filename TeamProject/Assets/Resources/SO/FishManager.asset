@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: FishManager
   m_EditorClassIdentifier: 
   currrentFish: {fileID: 0}
+  mouseOnFish: {fileID: 11400000, guid: 6b80a59378ef40f46a403f87c0d5ad0b, type: 2}

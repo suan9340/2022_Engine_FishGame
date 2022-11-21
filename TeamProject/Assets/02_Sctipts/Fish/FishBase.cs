@@ -22,6 +22,8 @@ public class FishBase : MonoBehaviour
 
     public Vector2 minPower;
     public Vector2 maxPower;
+    [Space(30)]
+    public bool isMoving = false;
 
     private Outline outline;
     public LineRenderer lineRenderer;
@@ -38,6 +40,7 @@ public class FishBase : MonoBehaviour
     private void Update()
     {
         ChargingLineRenderUpdate();
+        LookFishRotationMousePostion();
     }
 
     private void Cashing()
@@ -88,6 +91,7 @@ public class FishBase : MonoBehaviour
     {
         outline.enabled = false;
         outline.OutlineColor = fishInfo.outlineColor;
+        fishManagerSO.mouseOnFish = null;
     }
 
     private void OnMouseEnter()
@@ -102,8 +106,17 @@ public class FishBase : MonoBehaviour
 
     private void CheckFishOutline(bool _boolen)
     {
-        if (fishManagerSO.currrentFish != null) return;
+        fishManagerSO.mouseOnFish = fishInfo;
+
+        if (fishManagerSO.currrentFish != null)
+        {
+            fishManagerSO.mouseOnFish = fishManagerSO.currrentFish;
+            return;
+        }
+
         if (isMousePointOn == _boolen) return;
+
+        UIManager.Instance.FishUION();
 
         isMousePointOn = _boolen;
 
@@ -154,11 +167,16 @@ public class FishBase : MonoBehaviour
     {
         lineRenderer.enabled = false;
         isCharging = false;
+
         fishManagerSO.currrentFish = null;
 
         lineRenderer.SetPosition(0, resetPos);
         lineRenderer.SetPosition(1, resetPos);
 
+        var a = Vector3.Distance(startPos, endPos);
+
+        var dir = startPos - endPos; dir.x = dir.y = 0;
+        //Debug.Log($"차징 길이 차이는 {a}");
 
         force = new Vector2(Mathf.Clamp(startPos.x - endPos.x, minPower.x, maxPower.x),
                 Mathf.Clamp(startPos.y - endPos.y, minPower.y, maxPower.y));
@@ -176,8 +194,21 @@ public class FishBase : MonoBehaviour
     private void LookAtShootDir()
     {
         Vector3 _dir = startPos - endPos;
-
-
     }
+
+    private void LookFishRotationMousePostion()
+    {
+        //Vector3 dir = new Vector3(0, 0, Input.GetAxis("Mouse Y"));
+        //transform.Rotate(dir * 5);
+    }
+
+    //private IEnumerator FishMoving()
+    //{
+    //    while(transform.position <= )
+    //    {
+
+    //    }
+    //    yield return null;
+    //}
     #endregion
 }

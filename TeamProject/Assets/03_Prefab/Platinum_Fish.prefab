@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2291316173459565376
+--- !u!1 &623552447299233836
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1479348123923542522}
-  - component: {fileID: 2533390044359917151}
-  - component: {fileID: 345826760770030229}
-  - component: {fileID: 345826760770030228}
+  - component: {fileID: 282773539447698070}
+  - component: {fileID: 3765931351197875507}
+  - component: {fileID: 1416296138880256505}
+  - component: {fileID: 1416296138880256504}
+  - component: {fileID: 1416296138880256507}
   m_Layer: 0
-  m_Name: FishV1
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1479348123923542522
+--- !u!4 &282773539447698070
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2291316173459565376}
+  m_GameObject: {fileID: 623552447299233836}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4542943443387364757}
+  m_Father: {fileID: 2909581205432809209}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2533390044359917151
+--- !u!33 &3765931351197875507
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2291316173459565376}
+  m_GameObject: {fileID: 623552447299233836}
   m_Mesh: {fileID: -5414332994079535143, guid: 38f74cd884cda8242b4fdc167c4962f8, type: 3}
---- !u!23 &345826760770030229
+--- !u!23 &1416296138880256505
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2291316173459565376}
+  m_GameObject: {fileID: 623552447299233836}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,13 +85,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &345826760770030228
+--- !u!114 &1416296138880256504
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2291316173459565376}
+  m_GameObject: {fileID: 623552447299233836}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
@@ -102,7 +103,21 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!1 &3765033832533421871
+--- !u!64 &1416296138880256507
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623552447299233836}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5414332994079535143, guid: 38f74cd884cda8242b4fdc167c4962f8, type: 3}
+--- !u!1 &2534180909449079875
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,10 +125,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4542943443387364757}
-  - component: {fileID: 622654995086719549}
-  - component: {fileID: 622654995086719538}
-  - component: {fileID: 622654995086719539}
+  - component: {fileID: 2909581205432809209}
+  - component: {fileID: 2292106971860875601}
+  - component: {fileID: 2292106971860875614}
+  - component: {fileID: 2292106971860875615}
   m_Layer: 0
   m_Name: Platinum_Fish
   m_TagString: Untagged
@@ -121,29 +136,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4542943443387364757
+--- !u!4 &2909581205432809209
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3765033832533421871}
+  m_GameObject: {fileID: 2534180909449079875}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.74, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalPosition: {x: 6.72, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1479348123923542522}
+  - {fileID: 282773539447698070}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &622654995086719549
+--- !u!54 &2292106971860875601
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3765033832533421871}
+  m_GameObject: {fileID: 2534180909449079875}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -151,28 +166,28 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
---- !u!65 &622654995086719538
+--- !u!65 &2292106971860875614
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3765033832533421871}
+  m_GameObject: {fileID: 2534180909449079875}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.91659105, y: 0.46669358, z: 0.13039604}
   m_Center: {x: 0.0056705624, y: -0.022156887, z: 0}
---- !u!114 &622654995086719539
+--- !u!114 &2292106971860875615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3765033832533421871}
+  m_GameObject: {fileID: 2534180909449079875}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef88ab0c90fbb8740bd2669435edc673, type: 3}
@@ -180,9 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rating: 2
   fishInfo: {fileID: 0}
-  isMousePointOn: 0
-  isCharging: 0
   force: {x: 0, y: 0}
   minPower: {x: 0, y: 0}
   maxPower: {x: 0, y: 0}
+  isMoving: 0
   lineRenderer: {fileID: 0}

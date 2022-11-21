@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishname: "Platinum\uBB3C\uACE0\uAE30"
   rating: 2
-  speed: 0
+  speed: 6
   outlineColor: {r: 0.30582055, g: 0.5318619, b: 0.7830189, a: 1}
