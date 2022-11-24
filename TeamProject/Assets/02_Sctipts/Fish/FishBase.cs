@@ -25,6 +25,7 @@ public class FishBase : MonoBehaviour
     [Space(30)]
     public bool isMoving = false;
 
+
     private Outline outline;
     public LineRenderer lineRenderer;
     private Rigidbody myrigid;
@@ -117,6 +118,7 @@ public class FishBase : MonoBehaviour
         if (isMousePointOn == _boolen) return;
 
         UIManager.Instance.FishUION();
+        GameManager.Instance.FishCamSetting(transform);
 
         isMousePointOn = _boolen;
 
@@ -151,6 +153,7 @@ public class FishBase : MonoBehaviour
         lineRenderer.enabled = true;
 
         fishManagerSO.currrentFish = fishInfo;
+        GameManager.Instance.FishCamSetting(transform);
 
         startPos = new Vector3(transform.position.x, transform.position.y, 0f);
         lineRenderer.SetPosition(0, startPos);
@@ -193,7 +196,10 @@ public class FishBase : MonoBehaviour
 
     private void LookAtShootDir()
     {
-        Vector3 _dir = startPos - endPos;
+        Vector3 _dir = new Vector3(0f, 0f, endPos.y);
+        Vector3 _dir22 = new Vector3(0f, endPos.y, endPos.z);
+        //transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, endPos.y));
+        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, endPos.z));
     }
 
     private void LookFishRotationMousePostion()
@@ -210,5 +216,7 @@ public class FishBase : MonoBehaviour
     //    }
     //    yield return null;
     //}
+
+
     #endregion
 }
