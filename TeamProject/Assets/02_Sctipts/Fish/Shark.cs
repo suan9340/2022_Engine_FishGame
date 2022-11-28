@@ -37,7 +37,7 @@ public class Shark : MonoBehaviour
             fishs.Add(a.gameObject);
         }
 
-        StartCoroutine(SharkStateCorutine());
+        //StartCoroutine(SharkStateCorutine());
     }
 
     public IEnumerator SharkStateCorutine()
@@ -66,7 +66,9 @@ public class Shark : MonoBehaviour
             if (isFishHit) return;
             isFishHit = true;
 
-            fishs.Remove(other.gameObject);
+            Debug.Log(other.name);
+
+            Destroy(other.gameObject);
         }
     }
 
@@ -75,8 +77,7 @@ public class Shark : MonoBehaviour
     {
         int _num = Random.Range(0, fishs.Count);
         Transform _trn = fishs[_num].gameObject.transform;
-        gameObject.transform.DOMove(_trn.position, moveSpeed).SetEase(Ease.Linear);
-        Debug.Log("qwe");
+        gameObject.transform.DOMove(_trn.position, moveSpeed).SetEase(Ease.InCubic);
         yield return null;
     }
 

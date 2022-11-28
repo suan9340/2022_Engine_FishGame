@@ -68,7 +68,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_17E53C12: 0.62
-    - Vector1_244B0600: 0.66
+    - Vector1_244B0600: 0.18
     - Vector1_34CF798A: 1.75
     - Vector1_36E8227: 0.57
     - Vector1_3D886DA1: 0.05
@@ -102,7 +102,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _WaveFrequency: 1.75
+    - _WaveFrequency: 1.2
     - _WaveScale: 0
     - _WaveSpeed: 0.07
     - _WorkflowMode: 1
