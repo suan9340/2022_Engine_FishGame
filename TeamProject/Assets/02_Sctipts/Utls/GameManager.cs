@@ -32,12 +32,10 @@ public class GameManager : MonoBehaviour
 
     public Camera fishCam = null;
 
+    [Space(20)]
+    public DefineManager.GameState gameState;
 
-    public void SetCurrentFish(FishBase _fish)
-    {
-        currentFish = _fish;
-    }
-
+  
     public bool CheckCurrentFish()
     {
         if (currentFish == null)
@@ -58,5 +56,8 @@ public class GameManager : MonoBehaviour
         fishCam.transform.SetParent(_trn);
     }
 
-    // 현재 선택중인 물고기 있을 때 위에 아웃라인 안나오게 하기
+    public void ChangeGameState(DefineManager.GameState _state)
+    {
+        gameState = _state;
+    }
 }

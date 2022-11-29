@@ -11,4 +11,12 @@ public static class DefineManager
         PLATINUM,
         DIAMOND,
     }
+
+    public enum GameState
+    {
+        MENU,
+        PLAYING,
+        SETTING,
+        FINISH,
+    }
 }

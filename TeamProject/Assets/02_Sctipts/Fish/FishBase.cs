@@ -41,7 +41,6 @@ public class FishBase : MonoBehaviour
     private void Update()
     {
         ChargingLineRenderUpdate();
-        LookFishRotationMousePostion();
     }
 
     private void Cashing()
@@ -107,6 +106,11 @@ public class FishBase : MonoBehaviour
 
     private void CheckFishOutline(bool _boolen)
     {
+        if (GameManager.Instance.gameState != DefineManager.GameState.PLAYING)
+        {
+            return;
+        }
+
         fishManagerSO.mouseOnFish = fishInfo;
 
         if (fishManagerSO.currrentFish != null)
@@ -129,6 +133,11 @@ public class FishBase : MonoBehaviour
     #region LineRender_Charging
     private void ChargingLineRenderUpdate()
     {
+        if (GameManager.Instance.gameState != DefineManager.GameState.PLAYING)
+        {
+            return;
+        }
+
         if (!isMousePointOn) return;
 
         if (Input.GetMouseButtonDown(0))
@@ -217,6 +226,6 @@ public class FishBase : MonoBehaviour
     //    yield return null;
     //}
 
-
+  
     #endregion
 }
