@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     [Space(20)]
     public DefineManager.GameState gameState;
 
-  
+
     public bool CheckCurrentFish()
     {
         if (currentFish == null)

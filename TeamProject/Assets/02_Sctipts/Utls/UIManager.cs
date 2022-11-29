@@ -58,9 +58,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject ReallySettingDownObj = null;
     [SerializeField] private Text ReallyOutSettingText = null;
     [SerializeField] private List<string> settingText = new List<string>();
+    public float fadeUISpeed = 0.03f;
 
     private bool isSettingOn = false;
     private bool isReallySettingOn = false;
+    private bool isUiMoving = false;
 
     private void Awake()
     {
@@ -152,8 +154,11 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator SettingUIClick()
     {
+        if (isUiMoving || ReallySettingDownObj.activeSelf) yield break;
         isSettingOn = !isSettingOn;
+
         float _alpha = 0;
+        isUiMoving = true;
 
         if (isSettingOn)
         {
@@ -162,7 +167,7 @@ public class UIManager : MonoBehaviour
 
             while (_alpha <= 1)
             {
-                _alpha += 0.05f;
+                _alpha += fadeUISpeed;
                 SettingObj.GetComponent<CanvasGroup>().alpha = _alpha;
                 yield return null;
             }
@@ -174,7 +179,7 @@ public class UIManager : MonoBehaviour
 
             while (_alpha >= 0)
             {
-                _alpha -= 0.05f;
+                _alpha -= fadeUISpeed;
                 SettingObj.GetComponent<CanvasGroup>().alpha = _alpha;
                 yield return null;
             }
@@ -183,15 +188,18 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.ChangeGameState(DefineManager.GameState.PLAYING);
         }
 
-
+        isUiMoving = false;
         yield break;
     }
 
 
     public IEnumerator ReallyOutSettingClick()
     {
+        if (isUiMoving) yield break;
         isReallySettingOn = !isReallySettingOn;
+
         float _alpha = 0;
+        isUiMoving = true;
 
         if (isReallySettingOn)
         {
@@ -200,7 +208,7 @@ public class UIManager : MonoBehaviour
 
             while (_alpha <= 1)
             {
-                _alpha += 0.05f;
+                _alpha += fadeUISpeed;
                 ReallySettingDownObj.GetComponent<CanvasGroup>().alpha = _alpha;
                 yield return null;
             }
@@ -211,7 +219,7 @@ public class UIManager : MonoBehaviour
 
             while (_alpha >= 0)
             {
-                _alpha -= 0.05f;
+                _alpha -= fadeUISpeed;
                 ReallySettingDownObj.GetComponent<CanvasGroup>().alpha = _alpha;
                 yield return null;
             }
@@ -219,7 +227,7 @@ public class UIManager : MonoBehaviour
             ReallySettingDownObj.SetActive(false);
         }
 
-
+        isUiMoving = false;
         yield break;
     }
 
@@ -250,7 +258,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void OnClickReallySettingNo()    
+    public void OnClickReallySettingNo()
     {
         OnClickReallySettingOut();
     }
