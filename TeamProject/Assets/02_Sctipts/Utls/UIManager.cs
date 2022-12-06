@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 
 public class UIManager : MonoBehaviour
 {
@@ -51,6 +52,9 @@ public class UIManager : MonoBehaviour
     [Space(50)]
     [Header("InGameUI")]
     [SerializeField] private Text gameCountText = null;
+    [SerializeField] private Text levelText = null;
+    [SerializeField] private RectTransform centTrn = null;
+    private bool isCountDown = false;
 
     [Space(50)]
     [Header("SettingUI")]
@@ -65,10 +69,10 @@ public class UIManager : MonoBehaviour
     [Header("GameClearUI")]
     [SerializeField] private GameObject gameClearObj = null;
 
+
     private bool isSettingOn = false;
     private bool isReallySettingOn = false;
     private bool isUiMoving = false;
-    private bool isGameClear = false;
 
 
     private void Awake()
@@ -90,6 +94,11 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OnClickSetting();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            StartCoroutine(GameClear());
         }
     }
 
@@ -116,7 +125,7 @@ public class UIManager : MonoBehaviour
         gameStartImg.transform.DOScale(new Vector3(9f, 9f, 9f), startAnimationSpeed).SetEase(Ease.Unset);
         gameStartbackImg.DOFade(0f, startAnimationSpeed);
         Invoke(nameof(StartGameState), startAnimationSpeed);
-        StartCoroutine(gameCountTextCorutine());
+        StartCoroutine(gameCountTextCorutine(true));
     }
 
     public void OnClickExit()
@@ -127,26 +136,8 @@ public class UIManager : MonoBehaviour
 
     private void StartGameState()
     {
+        gameStartImg.transform.DOScale(new Vector3(1f, 1f, 1f), 0.1f);
         gameStartImg.SetActive(false);
-    }
-
-    public IEnumerator gameCountTextCorutine()
-    {
-        yield return new WaitForSeconds(1f);
-
-        gameCountText.gameObject.SetActive(true);
-
-        gameCountText.DOFade(1f, 0.5f);
-
-        for (int i = 3; i >= 1; i--)
-        {
-            gameCountText.text = $"{i}";
-            yield return new WaitForSeconds(1f);
-        }
-
-        gameCountText.gameObject.SetActive(false);
-        GameManager.Instance.ChangeGameState(DefineManager.GameState.PLAYING);
-        yield break;
     }
 
     public void OnClickSetting()
@@ -159,9 +150,39 @@ public class UIManager : MonoBehaviour
         StartCoroutine(ReallyOutSettingClick());
     }
 
+
+    public IEnumerator gameCountTextCorutine(bool _isdelay)
+    {
+        isCountDown = true;
+
+        if (_isdelay)
+            yield return new WaitForSeconds(1f);
+
+        gameCountText.gameObject.SetActive(true);
+
+        gameCountText.DOFade(1f, 0.5f);
+
+
+        for (int i = 3; i >= 1; i--)
+        {
+            gameCountText.text = $"{i}";
+            yield return new WaitForSeconds(1f);
+        }
+        isCountDown = false;
+
+        gameCountText.DOFade(0f, 0.5f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        GameManager.Instance.ChangeGameState(DefineManager.GameState.PLAYING);
+        gameCountText.gameObject.SetActive(false);
+        yield break;
+    }
+
+
     public IEnumerator SettingUIClick()
     {
-        if (isUiMoving || ReallySettingDownObj.activeSelf) yield break;
+        if (isUiMoving || ReallySettingDownObj.activeSelf || isCountDown || GameManager.Instance.gameState == DefineManager.GameState.CLEAR) yield break;
         isSettingOn = !isSettingOn;
 
         float _alpha = 0;
@@ -169,16 +190,17 @@ public class UIManager : MonoBehaviour
 
         if (isSettingOn)
         {
+            GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
+
+
             SettingObj.SetActive(true);
             _alpha = 0;
-
             while (_alpha <= 1)
             {
                 _alpha += fadeUISpeed;
                 SettingObj.GetComponent<CanvasGroup>().alpha = _alpha;
                 yield return null;
             }
-            GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
         }
         else
         {
@@ -192,13 +214,58 @@ public class UIManager : MonoBehaviour
             }
 
             SettingObj.SetActive(false);
-            GameManager.Instance.ChangeGameState(DefineManager.GameState.PLAYING);
+            StartCoroutine(gameCountTextCorutine(false));
         }
 
         isUiMoving = false;
         yield break;
     }
 
+    public IEnumerator MenuFade()
+    {
+        if (isUiMoving) yield break;
+
+        float _alpha = 0;
+        isUiMoving = true;
+
+        gameStartImg.SetActive(true);
+        _alpha = 0;
+
+        while (_alpha <= 1)
+        {
+            _alpha += fadeUISpeed;
+            gameStartImg.GetComponent<CanvasGroup>().alpha = _alpha;
+            yield return null;
+        }
+        GameManager.Instance.ChangeGameState(DefineManager.GameState.MENU);
+
+
+        isUiMoving = false;
+        yield break;
+    }
+
+    public IEnumerator GameClearObjFadeOut()
+    {
+        if (isUiMoving) yield break;
+
+        float _alpha = 0;
+        isUiMoving = true;
+
+        gameClearObj.SetActive(true);
+        _alpha = 1;
+
+        while (_alpha >= 0)
+        {
+            _alpha -= fadeUISpeed;
+            gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
+            yield return null;
+        }
+        GameManager.Instance.ChangeGameState(DefineManager.GameState.CLEAR);
+
+
+        isUiMoving = false;
+        yield break;
+    }
 
     public IEnumerator ReallyOutSettingClick()
     {
@@ -241,44 +308,67 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator GameClear()
     {
-        if (isGameClear) yield break;
-        isGameClear = !isGameClear;
+        if (isUiMoving || GameManager.Instance.gameState != DefineManager.GameState.PLAYING) yield break;
 
         float _alpha = 0;
         isUiMoving = true;
 
-        if (isGameClear)
+        gameClearObj.SetActive(true);
+        _alpha = 0;
+
+        while (_alpha <= 1)
         {
-            gameClearObj.SetActive(true);
-            _alpha = 0;
-
-            while (_alpha <= 1)
-            {
-                _alpha += fadeUISpeed;
-                gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
-                yield return null;
-            }
-            GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
+            _alpha += fadeUISpeed;
+            gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
+            yield return null;
         }
-        else
-        {
-            _alpha = 1;
+        GameManager.Instance.ChangeGameState(DefineManager.GameState.CLEAR);
 
-            while (_alpha >= 0)
-            {
-                _alpha -= fadeUISpeed;
-                gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
-                yield return null;
-            }
 
-            gameClearObj.SetActive(false);
-            GameManager.Instance.ChangeGameState(DefineManager.GameState.PLAYING);
-        }
+
 
         isUiMoving = false;
         yield break;
     }
 
+    public IEnumerator LevelAnimation()
+    {
+        levelText.gameObject.SetActive(false);
+
+        yield return GameClearObjFadeOut();
+
+        levelText.gameObject.SetActive(true);
+
+        StartCoroutine(gameCountTextCorutine(false));
+    }
+
+    public IEnumerator MenuObject()
+    {
+        if (isUiMoving) yield break;
+
+        float _alpha = 0;
+        isUiMoving = true;
+
+
+
+
+        gameStartImg.SetActive(true);
+        _alpha = 0;
+
+        while (_alpha <= 1)
+        {
+            _alpha += fadeUISpeed;
+            gameStartImg.GetComponent<CanvasGroup>().alpha = _alpha;
+            yield return null;
+        }
+        GameManager.Instance.ChangeGameState(DefineManager.GameState.MENU);
+
+
+
+
+        isUiMoving = false;
+        yield break;
+    }
 
     public void OnClickGoToMenu()
     {
@@ -313,12 +403,23 @@ public class UIManager : MonoBehaviour
 
     public void SetMenu()
     {
-        gameStartImg.SetActive(true);
-        GameManager.Instance.ChangeGameState(DefineManager.GameState.MENU);
+        if (SettingObj.activeSelf)
+        {
+            StartCoroutine(SettingUIClick());
+        }
+
+        if (gameClearObj.activeSelf)
+        {
+            gameClearObj.SetActive(false);
+        }
+
+        StartCoroutine(MenuFade());
     }
     public void OnClickNextLevel()
     {
+        StageManager.Instance.StagePlus();
 
+        StartCoroutine(LevelAnimation());
     }
 
 }

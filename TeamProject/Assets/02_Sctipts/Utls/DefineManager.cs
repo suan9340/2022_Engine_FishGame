@@ -17,6 +17,6 @@ public static class DefineManager
         MENU,
         PLAYING,
         SETTING,
-        FINISH,
+        CLEAR,
     }
 }
