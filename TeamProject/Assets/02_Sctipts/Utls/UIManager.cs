@@ -60,9 +60,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<string> settingText = new List<string>();
     public float fadeUISpeed = 0.03f;
 
+
+    [Space(50)]
+    [Header("GameClearUI")]
+    [SerializeField] private GameObject gameClearObj = null;
+
     private bool isSettingOn = false;
     private bool isReallySettingOn = false;
     private bool isUiMoving = false;
+    private bool isGameClear = false;
 
 
     private void Awake()
@@ -233,6 +239,47 @@ public class UIManager : MonoBehaviour
     }
 
 
+    public IEnumerator GameClear()
+    {
+        if (isGameClear) yield break;
+        isGameClear = !isGameClear;
+
+        float _alpha = 0;
+        isUiMoving = true;
+
+        if (isGameClear)
+        {
+            gameClearObj.SetActive(true);
+            _alpha = 0;
+
+            while (_alpha <= 1)
+            {
+                _alpha += fadeUISpeed;
+                gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
+                yield return null;
+            }
+            GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
+        }
+        else
+        {
+            _alpha = 1;
+
+            while (_alpha >= 0)
+            {
+                _alpha -= fadeUISpeed;
+                gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
+                yield return null;
+            }
+
+            gameClearObj.SetActive(false);
+            GameManager.Instance.ChangeGameState(DefineManager.GameState.PLAYING);
+        }
+
+        isUiMoving = false;
+        yield break;
+    }
+
+
     public void OnClickGoToMenu()
     {
         ReallyOutSettingText.text = settingText[0];
@@ -262,6 +309,16 @@ public class UIManager : MonoBehaviour
     public void OnClickReallySettingNo()
     {
         OnClickReallySettingOut();
+    }
+
+    public void SetMenu()
+    {
+        gameStartImg.SetActive(true);
+        GameManager.Instance.ChangeGameState(DefineManager.GameState.MENU);
+    }
+    public void OnClickNextLevel()
+    {
+
     }
 
 }
