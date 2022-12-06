@@ -34,10 +34,10 @@ public class UIManager : MonoBehaviour
 
     [Header("FishInfos")]
     [SerializeField] private GameObject fishInfoObject = null;
-    [SerializeField] private Text fishName;
-    [SerializeField] private Image fishColor;
-    [SerializeField] private Image fishSpeed;
-    [SerializeField] private Image fishIcon;
+    [SerializeField] private Text fishName = null;
+    [SerializeField] private Image fishColor = null;
+    [SerializeField] private Image fishSpeed = null;
+    [SerializeField] private Image fishIcon = null;
     private bool isFishUI = false;
 
 
@@ -63,6 +63,7 @@ public class UIManager : MonoBehaviour
     private bool isSettingOn = false;
     private bool isReallySettingOn = false;
     private bool isUiMoving = false;
+
 
     private void Awake()
     {
@@ -262,4 +263,5 @@ public class UIManager : MonoBehaviour
     {
         OnClickReallySettingOut();
     }
+
 }

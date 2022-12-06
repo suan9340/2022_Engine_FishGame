@@ -23,10 +23,6 @@ public class Shark : MonoBehaviour
     [Space(10)]
     public float moveSpeed;
 
-    private bool isFishHit;
-
-
-
 
     private void Start()
     {
@@ -57,21 +53,6 @@ public class Shark : MonoBehaviour
         state = _changestate;
         Debug.Log($"Current State {state}");
     }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(ConstantManager.TAG_FISH))
-        {
-            if (isFishHit) return;
-            isFishHit = true;
-
-            Debug.Log(other.name);
-
-            Destroy(other.gameObject);
-        }
-    }
-
 
     private IEnumerator FishAttacks()
     {

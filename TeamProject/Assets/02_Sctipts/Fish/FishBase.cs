@@ -226,6 +226,17 @@ public class FishBase : MonoBehaviour
     //    yield return null;
     //}
 
-  
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(ConstantManager.TAG_SHARK))
+        {
+             
+            Debug.Log(gameObject.name);
+
+            Destroy(other.gameObject);
+        }
+    }
+
+
     #endregion
 }

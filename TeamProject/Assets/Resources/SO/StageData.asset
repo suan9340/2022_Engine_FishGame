@@ -14,13 +14,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStage: 1
   stageBase:
-  - stageLevel: 
-    bronzenum: 0
+  - stageLevel: 1
+    bronzenum: 2
     slivernum: 0
     platinumnum: 0
     diamondnum: 0
-  - stageLevel: 
-    bronzenum: 0
-    slivernum: 0
+    maxTime: 10
+  - stageLevel: 2
+    bronzenum: 2
+    slivernum: 1
     platinumnum: 0
     diamondnum: 0
+    maxTime: 11
+  - stageLevel: 3
+    bronzenum: 1
+    slivernum: 2
+    platinumnum: 0
+    diamondnum: 0
+    maxTime: 12
+  - stageLevel: 4
+    bronzenum: 0
+    slivernum: 1
+    platinumnum: 1
+    diamondnum: 0
+    maxTime: 50
+  - stageLevel: 5
+    bronzenum: 2
+    slivernum: 4
+    platinumnum: 2
+    diamondnum: 1
+    maxTime: 50
+  - stageLevel: 6
+    bronzenum: 2
+    slivernum: 4
+    platinumnum: 2
+    diamondnum: 1
+    maxTime: 50
+  - stageLevel: 7
+    bronzenum: 2
+    slivernum: 4
+    platinumnum: 2
+    diamondnum: 1
+    maxTime: 50
+  - stageLevel: 8
+    bronzenum: 2
+    slivernum: 4
+    platinumnum: 2
+    diamondnum: 1
+    maxTime: 50
+  - stageLevel: 9
+    bronzenum: 2
+    slivernum: 4
+    platinumnum: 2
+    diamondnum: 1
+    maxTime: 50
+  - stageLevel: 10
+    bronzenum: 2
+    slivernum: 4
+    platinumnum: 2
+    diamondnum: 1
+    maxTime: 50

@@ -10,25 +10,21 @@ public class StageData : ScriptableObject
     public int currentStage = 1;
 
     [Space(20)]
-    [SerializeField] private List<StageBase> stageBase = new List<StageBase>();
-
-    public StageData()
-    {
-        for (int i = 0; i < stageBase.Count; i++)
-        {
-            stageBase[i].stageLevel = $"Level {i + 1}";
-        }
-    }
+    public List<StageBase> stageBase = new List<StageBase>();
 }
 
 [Serializable]
 public class StageBase
 {
     public string stageLevel;
-    public int bronzenum;
-    public int slivernum;
-    public int platinumnum;
-    public int diamondnum;
+    [Range(0, 10)] public int bronzenum = 1;
+    [Range(0, 10)] public int slivernum = 1;
+    [Range(0, 10)] public int platinumnum = 1;
+    [Range(0, 10)] public int diamondnum = 1;
+
+    [Space(10)]
+    [Range(0, 100)]
+    public float maxTime = 50;
 
 }
 
