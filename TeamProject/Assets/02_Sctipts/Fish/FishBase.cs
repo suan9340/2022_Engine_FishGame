@@ -26,10 +26,12 @@ public class FishBase : MonoBehaviour
     [Space(30)]
     public bool isMoving = false;
     public bool isDie = false;
+    private bool isDieParticle = false;
 
 
     private Outline outline;
     public LineRenderer lineRenderer;
+    private BoxCollider boxCol;
     private Rigidbody myrigid;
     private MeshCollider myMeshCol;
     private FishManagerSO fishManagerSO;
@@ -52,6 +54,7 @@ public class FishBase : MonoBehaviour
         outline = GetComponentInChildren<Outline>();
         myrigid = GetComponent<Rigidbody>();
         myMeshCol = GetComponentInChildren<MeshCollider>();
+        boxCol = GetComponent<BoxCollider>();
 
         if (lineRenderer == null)
         {
@@ -244,11 +247,35 @@ public class FishBase : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.CompareTag(ConstantManager.TAG_FLOOR))
+        {
+            if (!isDie) return;
+
+            Debug.Log("er");
+            DieParticle();
+        }
+    }
+
     private void FishDie()
     {
+        boxCol.enabled = false;
         myMeshCol.enabled = true;
         myrigid.useGravity = true;
         myrigid.isKinematic = false;
+    }
+
+    private void DieParticle()
+    {
+        if (isDieParticle) return;
+
+        isDieParticle = true;
+        var a = ParticleManager.Instance.ParticleNames[0].particle.gameObject;
+
+        GameObject _obj = Instantiate(a, transform.position, Quaternion.identity);
+        //_obj.transform.parent = transform;
+        //_obj.transform.LookAt(Vector3.up);
     }
     #endregion
 }

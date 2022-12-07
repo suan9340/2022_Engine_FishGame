@@ -19,3 +19,4 @@ public class TextureScrolling : MonoBehaviour
         mesh.material.mainTextureOffset += offset * Time.deltaTime;
     }
 }
+ 
