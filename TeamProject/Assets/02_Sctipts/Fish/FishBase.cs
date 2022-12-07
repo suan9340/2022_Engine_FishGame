@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,11 +25,13 @@ public class FishBase : MonoBehaviour
     public Vector2 maxPower;
     [Space(30)]
     public bool isMoving = false;
+    public bool isDie = false;
 
 
     private Outline outline;
     public LineRenderer lineRenderer;
     private Rigidbody myrigid;
+    private MeshCollider myMeshCol;
     private FishManagerSO fishManagerSO;
 
     private void Awake()
@@ -40,6 +43,7 @@ public class FishBase : MonoBehaviour
 
     private void Update()
     {
+        if (isDie) return;
         ChargingLineRenderUpdate();
     }
 
@@ -47,6 +51,7 @@ public class FishBase : MonoBehaviour
     {
         outline = GetComponentInChildren<Outline>();
         myrigid = GetComponent<Rigidbody>();
+        myMeshCol = GetComponentInChildren<MeshCollider>();
 
         if (lineRenderer == null)
         {
@@ -106,7 +111,7 @@ public class FishBase : MonoBehaviour
 
     private void CheckFishOutline(bool _boolen)
     {
-        if (GameManager.Instance.gameState != DefineManager.GameState.PLAYING)
+        if (GameManager.Instance.gameState != DefineManager.GameState.PLAYING || isDie)
         {
             return;
         }
@@ -230,13 +235,20 @@ public class FishBase : MonoBehaviour
     {
         if (other.CompareTag(ConstantManager.TAG_SHARK))
         {
-             
+            if (isDie) return;
+            isDie = true;
+            myrigid.isKinematic = true;
             Debug.Log(gameObject.name);
 
-            Destroy(other.gameObject);
+            FishDie();
         }
     }
 
-
+    private void FishDie()
+    {
+        myMeshCol.enabled = true;
+        myrigid.useGravity = true;
+        myrigid.isKinematic = false;
+    }
     #endregion
 }
