@@ -244,6 +244,7 @@ public class FishBase : MonoBehaviour
             Debug.Log(gameObject.name);
 
             FishDie();
+            GameManager.Instance.RemoveFishList(gameObject);
         }
     }
 

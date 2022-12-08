@@ -1,6 +1,6 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -35,6 +35,17 @@ public class GameManager : MonoBehaviour
     [Space(20)]
     public DefineManager.GameState gameState;
 
+    [Space(20)]
+    [Header("Fishes")]
+    public Transform fishMom;
+    public float sharkMoveSpeed;
+    public bool isFishAllDie = false;
+    public List<GameObject> fishs = new List<GameObject>();
+
+    public void Awake()
+    {
+        Findfishies();
+    }
 
     public bool CheckCurrentFish()
     {
@@ -61,5 +72,48 @@ public class GameManager : MonoBehaviour
         gameState = _state;
     }
 
+    public void Findfishies()
+    {
+        foreach (Transform a in fishMom)
+        {
+            fishs.Add(a.gameObject);
+        }
+    }
+
+    public void SharkAttack(GameObject _obj)
+    {
+        StartCoroutine(FishCheckAttackState(_obj));
+    }
+
+    public IEnumerator FishCheckAttackState(GameObject _obj)
+    {
+        while (true)
+        {
+            if (isFishAllDie) yield break;
+            yield return FishAttacks(_obj);
+        }
+    }
+
+    public IEnumerator FishAttacks(GameObject _obj)
+    {
+        if (gameState != DefineManager.GameState.PLAYING) yield break;
+
+        if (fishs.Count == 0)
+        {
+            isFishAllDie = true;
+            Debug.Log("¹°°í±â ´ÙÁ×¾úÁö·Õ");
+            yield break;
+        }
+        int _num = Random.Range(0, fishs.Count);
+        Transform _trn = fishs[_num].gameObject.transform;
+        _obj.transform.DOMove(_trn.position, sharkMoveSpeed).SetEase(Ease.InCubic);
+
+        yield return new WaitForSeconds(sharkMoveSpeed);
+    }
+
+    public void RemoveFishList(GameObject _value)
+    {
+        fishs.Remove(_value.gameObject);
+    }
 
 }
