@@ -33,18 +33,14 @@ public class Shark : MonoBehaviour
             fishs.Add(a.gameObject);
         }
 
-        //StartCoroutine(SharkStateCorutine());
+        StartCoroutine(SharkStateCorutine());
     }
 
     public IEnumerator SharkStateCorutine()
     {
         while (true)
         {
-            StartCoroutine(FishAttacks());
-
-            yield return new WaitForSeconds(moveSpeed);
-
-            Debug.Log("erwerwerwerwe");
+            yield return FishAttacks();
         }
     }
 
@@ -56,10 +52,13 @@ public class Shark : MonoBehaviour
 
     private IEnumerator FishAttacks()
     {
+        if (GameManager.Instance.gameState != DefineManager.GameState.PLAYING) yield break;
+
         int _num = Random.Range(0, fishs.Count);
         Transform _trn = fishs[_num].gameObject.transform;
         gameObject.transform.DOMove(_trn.position, moveSpeed).SetEase(Ease.InCubic);
-        yield return null;
+
+        yield return new WaitForSeconds(moveSpeed);
     }
 
 }

@@ -143,7 +143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2534180909449079875}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.72, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
@@ -166,7 +166,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 120
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &2292106971860875614
 BoxCollider:
@@ -179,8 +179,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.91659105, y: 0.46669358, z: 0.13039604}
-  m_Center: {x: 0.0056705624, y: -0.022156887, z: 0}
+  m_Size: {x: 0.9165911, y: 0.4666936, z: 1.9968388}
+  m_Center: {x: 0.0056705475, y: -0.022156883, z: -0.0030799867}
 --- !u!114 &2292106971860875615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +196,8 @@ MonoBehaviour:
   rating: 2
   fishInfo: {fileID: 0}
   force: {x: 0, y: 0}
-  minPower: {x: 0, y: 0}
-  maxPower: {x: 0, y: 0}
+  minPower: {x: -1, y: -1}
+  maxPower: {x: 1, y: 1}
   isMoving: 0
+  isDie: 0
   lineRenderer: {fileID: 0}

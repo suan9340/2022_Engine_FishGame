@@ -165,9 +165,18 @@ public class UIManager : MonoBehaviour
 
         for (int i = 3; i >= 1; i--)
         {
-            gameCountText.text = $"{i}";
+            if (_isdelay && i == 1)
+            {
+                gameCountText.fontSize = 72;
+                gameCountText.text = $"상어를 피해 도망치세요!";
+            }
+            else
+            {
+                gameCountText.text = $"{i}";
+            }
             yield return new WaitForSeconds(1f);
         }
+        
         isCountDown = false;
 
         gameCountText.DOFade(0f, 0.5f);
@@ -176,6 +185,8 @@ public class UIManager : MonoBehaviour
 
         GameManager.Instance.ChangeGameState(DefineManager.GameState.PLAYING);
         gameCountText.gameObject.SetActive(false);
+        gameCountText.fontSize = 150;
+
         yield break;
     }
 

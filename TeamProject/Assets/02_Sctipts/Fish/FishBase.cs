@@ -249,12 +249,11 @@ public class FishBase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.CompareTag(ConstantManager.TAG_FLOOR))
+        if (collision.collider.CompareTag(ConstantManager.TAG_FLOOR))
         {
             if (!isDie) return;
 
-            Debug.Log("er");
-            DieParticle();
+            StartCoroutine(DieParticle());
         }
     }
 
@@ -266,16 +265,16 @@ public class FishBase : MonoBehaviour
         myrigid.isKinematic = false;
     }
 
-    private void DieParticle()
+    private IEnumerator DieParticle()
     {
-        if (isDieParticle) return;
-
+        if (isDieParticle) yield break;
         isDieParticle = true;
+
+        yield return new WaitForSeconds(1f);
         var a = ParticleManager.Instance.ParticleNames[0].particle.gameObject;
 
         GameObject _obj = Instantiate(a, transform.position, Quaternion.identity);
-        //_obj.transform.parent = transform;
-        //_obj.transform.LookAt(Vector3.up);
+        yield break;
     }
     #endregion
 }

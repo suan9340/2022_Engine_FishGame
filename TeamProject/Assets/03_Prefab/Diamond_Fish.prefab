@@ -112,7 +112,7 @@ MeshCollider:
   m_GameObject: {fileID: 2562034716655457390}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -179,8 +179,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0359232, y: 0.2930897, z: 1.572597}
-  m_Center: {x: 0.05498632, y: -0.039184906, z: -0.72749037}
+  m_Size: {x: 1.0359232, y: 0.2930897, z: 3.0407026}
+  m_Center: {x: 0.05498632, y: -0.039184906, z: 0.0065608025}
 --- !u!114 &5220256775795826274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,8 +196,8 @@ MonoBehaviour:
   rating: 3
   fishInfo: {fileID: 0}
   force: {x: 0, y: 0}
-  minPower: {x: 0, y: 0}
-  maxPower: {x: 0, y: 0}
+  minPower: {x: -1, y: -1}
+  maxPower: {x: 1, y: 1}
   isMoving: 0
   isDie: 0
   lineRenderer: {fileID: 0}
