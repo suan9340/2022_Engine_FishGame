@@ -25,6 +25,5 @@ public class StageBase
     [Space(10)]
     [Range(0, 100)]
     public float maxTime = 50;
-
 }
 

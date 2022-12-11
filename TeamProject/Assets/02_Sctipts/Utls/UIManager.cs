@@ -317,9 +317,10 @@ public class UIManager : MonoBehaviour
     }
 
 
+
     public IEnumerator GameClear()
     {
-        if (isUiMoving || GameManager.Instance.gameState != DefineManager.GameState.PLAYING) yield break;
+        if (isUiMoving/* || GameManager.Instance.gameState != DefineManager.GameState.PLAYING*/) yield break;
 
         float _alpha = 0;
         isUiMoving = true;

@@ -77,6 +77,7 @@ public class StageManager : MonoBehaviour
         {
             if (timerImage.fillAmount <= 0)
             {
+                GameManager.Instance.isClear = true;
                 Debug.Log("End");
                 isTimer = false;
                 yield break;

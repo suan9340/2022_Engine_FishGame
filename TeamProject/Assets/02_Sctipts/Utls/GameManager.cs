@@ -42,6 +42,10 @@ public class GameManager : MonoBehaviour
     public bool isFishAllDie = false;
     public List<GameObject> fishs = new List<GameObject>();
 
+    [Space(20)]
+    public bool isClear = false;
+
+
     public void Awake()
     {
         Findfishies();
@@ -74,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     public void Findfishies()
     {
+        isClear = false;
+
         foreach (Transform a in fishMom)
         {
             fishs.Add(a.gameObject);
@@ -93,7 +99,7 @@ public class GameManager : MonoBehaviour
             yield return FishAttacks(_obj);
         }
     }
-
+      
     public IEnumerator FishAttacks(GameObject _obj)
     {
         if (gameState != DefineManager.GameState.PLAYING) yield break;
@@ -102,6 +108,7 @@ public class GameManager : MonoBehaviour
         {
             isFishAllDie = true;
             Debug.Log("¹°°í±â ´ÙÁ×¾úÁö·Õ");
+
             yield break;
         }
         int _num = Random.Range(0, fishs.Count);
