@@ -37,8 +37,11 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Image timerImage = null;
     [SerializeField] private float maxTime = 5f;
     [SerializeField] private Text currentLevelTxt = null;
+    [SerializeField] private Text clearLevelTxt = null;
     private bool isTimer = false;
 
+    [Space(50)]
+    [SerializeField] private List<GameObject> LevelFishObj = null;
     private void Awake()
     {
         stageData = Resources.Load<StageData>("SO/StageData");
@@ -46,15 +49,15 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        ConnectCurrentStage();
-
-        StartCoroutine(TimerSet());
+        ResetStage();
     }
 
+   
     public void StagePlus()
     {
+        clearLevelTxt.text = $"Level : {stageData.currentStage}";
         stageData.currentStage++;
-
+        timerImage.fillAmount = 1f;
 
         ConnectCurrentStage();
     }
@@ -67,19 +70,38 @@ public class StageManager : MonoBehaviour
         maxTime = stageData.stageBase[arrLvl].maxTime;
     }
 
-    public IEnumerator TimerSet()
+    public void InstantiateFishObj()
+    {
+        Instantiate(LevelFishObj[arrLvl]);
+    }
+
+    public void ResetStage()
+    {
+        timerImage.fillAmount = 1f;
+        ConnectCurrentStage();
+        TimerSet();
+    }
+
+    public void TimerSet()
+    {
+        StartCoroutine(TimerSetCorutine());
+    }
+
+    public IEnumerator TimerSetCorutine()
     {
         if (isTimer) yield break;
         isTimer = true;
+
         var _time = maxTime;
 
         while (true)
         {
             if (timerImage.fillAmount <= 0)
             {
+                isTimer = false;
                 GameManager.Instance.isClear = true;
                 Debug.Log("End");
-                isTimer = false;
+                UIManager.Instance.GameClearShowClear();
                 yield break;
             }
 

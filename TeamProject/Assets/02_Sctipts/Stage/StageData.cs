@@ -17,10 +17,6 @@ public class StageData : ScriptableObject
 public class StageBase
 {
     public string stageLevel;
-    [Range(0, 10)] public int bronzenum = 1;
-    [Range(0, 10)] public int slivernum = 1;
-    [Range(0, 10)] public int platinumnum = 1;
-    [Range(0, 10)] public int diamondnum = 1;
 
     [Space(10)]
     [Range(0, 100)]

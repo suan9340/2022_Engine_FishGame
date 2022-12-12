@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 454186421685117561}
   - component: {fileID: 454186421685117558}
   - component: {fileID: 454186421685117566}
+  - component: {fileID: -6349795745014176401}
   m_Layer: 8
   m_Name: Sliver_Fish
   m_TagString: Fish
@@ -200,4 +201,25 @@ MonoBehaviour:
   maxPower: {x: 1, y: 1}
   isMoving: 0
   isDie: 0
+  fishAnimator: {fileID: 0}
   lineRenderer: {fileID: 0}
+--- !u!95 &-6349795745014176401
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066636178190856688}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac266c019087c2840b3575479e5991f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

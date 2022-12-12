@@ -78,6 +78,11 @@ public class GameManager : MonoBehaviour
 
     public void Findfishies()
     {
+
+        if (fishMom == null)
+        {
+            fishMom = GameObject.Find("FishMOM").transform;
+        }
         isClear = false;
 
         foreach (Transform a in fishMom)
@@ -99,7 +104,7 @@ public class GameManager : MonoBehaviour
             yield return FishAttacks(_obj);
         }
     }
-      
+
     public IEnumerator FishAttacks(GameObject _obj)
     {
         if (gameState != DefineManager.GameState.PLAYING) yield break;
@@ -123,4 +128,9 @@ public class GameManager : MonoBehaviour
         fishs.Remove(_value.gameObject);
     }
 
+    public void RemoveFishMomTransform()
+    {
+        Destroy(fishMom.gameObject);
+        fishMom = null;
+    }
 }

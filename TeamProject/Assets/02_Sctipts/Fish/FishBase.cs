@@ -245,8 +245,8 @@ public class FishBase : MonoBehaviour
             isDie = true;
             myrigid.isKinematic = true;
 
-            FishDie();
-            GameManager.Instance.RemoveFishList(gameObject);
+            StartCoroutine(FishDie());
+            UIManager.Instance.FishAttackEffect();
         }
     }
 
@@ -260,19 +260,29 @@ public class FishBase : MonoBehaviour
         }
     }
 
-    private void FishDie()
+    private IEnumerator FishDie()
     {
+        FishDieAnimation();
+        yield return new WaitForSeconds(1f);
+
+
         boxCol.enabled = false;
         myMeshCol.enabled = true;
         myrigid.useGravity = true;
         myrigid.isKinematic = false;
 
-        fishAnimator.is
-
         var b = ParticleManager.Instance.ParticleNames[1].particle.gameObject;
         GameObject _obj2 = Instantiate(b, transform.position, Quaternion.identity);
+        _obj2.transform.position = new Vector3(transform.position.x, transform.position.y, -2f);
 
         Destroy(_obj2, 1.5f);
+        GameManager.Instance.RemoveFishList(gameObject);
+        yield break;
+    }
+
+    private void FishDieAnimation()
+    {
+        fishAnimator.SetTrigger("isDie");
     }
 
     private IEnumerator DieParticle()

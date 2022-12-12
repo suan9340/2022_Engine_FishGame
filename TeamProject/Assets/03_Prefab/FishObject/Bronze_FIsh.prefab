@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7425551458305779031}
   - component: {fileID: 7425551458305779032}
   - component: {fileID: 7425551458305779033}
+  - component: {fileID: 1892940527}
   m_Layer: 8
   m_Name: Bronze_FIsh
   m_TagString: Fish
@@ -83,7 +84,28 @@ MonoBehaviour:
   maxPower: {x: 2, y: 2}
   isMoving: 0
   isDie: 0
+  fishAnimator: {fileID: 0}
   lineRenderer: {fileID: 0}
+--- !u!95 &1892940527
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5791282143055448063}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac266c019087c2840b3575479e5991f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7340899105612318993
 GameObject:
   m_ObjectHideFlags: 0

@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
     [Header("InGameUI")]
     [SerializeField] private Text gameCountText = null;
     [SerializeField] private Text levelText = null;
-    [SerializeField] private RectTransform centTrn = null;
+    [SerializeField] private Image attackEffectImage = null;
     private bool isCountDown = false;
 
     [Space(50)]
@@ -68,11 +68,13 @@ public class UIManager : MonoBehaviour
     [Space(50)]
     [Header("GameClearUI")]
     [SerializeField] private GameObject gameClearObj = null;
+    private bool isGameClear = false;
 
 
     private bool isSettingOn = false;
     private bool isReallySettingOn = false;
     private bool isUiMoving = false;
+
 
 
     private void Awake()
@@ -98,7 +100,7 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            StartCoroutine(GameClear());
+            StartCoroutine(GameClearCorutine());
         }
     }
 
@@ -142,14 +144,30 @@ public class UIManager : MonoBehaviour
 
     public void OnClickSetting()
     {
-        StartCoroutine(SettingUIClick());
+        StartCoroutine(SettingUIClickCorutine());
     }
 
     public void OnClickReallySettingOut()
     {
-        StartCoroutine(ReallyOutSettingClick());
+        StartCoroutine(ReallyOutSettingClickCorutine());
     }
 
+    public void GameClearShowClear()
+    {
+        GameManager.Instance.RemoveFishMomTransform();
+        StartCoroutine(GameClearCorutine());
+    }
+
+    public void FishAttackEffect()
+    {
+        ShackeCam(0.08f, 0.7f, 0);
+        StartCoroutine(FishAttackEffectCorutine());
+    }
+
+    public void ShackeCam(float _dur, float _str, int _vib)
+    {
+        Camera.main.DOShakePosition(_dur, _str, _vib).OnComplete(() => { Camera.main.transform.position = new Vector3(0, 2.66f, -10); });
+    }
 
     public IEnumerator gameCountTextCorutine(bool _isdelay)
     {
@@ -176,7 +194,7 @@ public class UIManager : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
-        
+
         isCountDown = false;
 
         gameCountText.DOFade(0f, 0.5f);
@@ -190,8 +208,7 @@ public class UIManager : MonoBehaviour
         yield break;
     }
 
-
-    public IEnumerator SettingUIClick()
+    public IEnumerator SettingUIClickCorutine()
     {
         if (isUiMoving || ReallySettingDownObj.activeSelf || isCountDown || GameManager.Instance.gameState == DefineManager.GameState.CLEAR) yield break;
         isSettingOn = !isSettingOn;
@@ -232,7 +249,7 @@ public class UIManager : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator MenuFade()
+    public IEnumerator MenuFadeCorutine()
     {
         if (isUiMoving) yield break;
 
@@ -255,30 +272,7 @@ public class UIManager : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator GameClearObjFadeOut()
-    {
-        if (isUiMoving) yield break;
-
-        float _alpha = 0;
-        isUiMoving = true;
-
-        gameClearObj.SetActive(true);
-        _alpha = 1;
-
-        while (_alpha >= 0)
-        {
-            _alpha -= fadeUISpeed;
-            gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
-            yield return null;
-        }
-        GameManager.Instance.ChangeGameState(DefineManager.GameState.CLEAR);
-
-
-        isUiMoving = false;
-        yield break;
-    }
-
-    public IEnumerator ReallyOutSettingClick()
+    public IEnumerator ReallyOutSettingClickCorutine()
     {
         if (isUiMoving) yield break;
         isReallySettingOn = !isReallySettingOn;
@@ -316,53 +310,66 @@ public class UIManager : MonoBehaviour
         yield break;
     }
 
-
-
-    public IEnumerator GameClear()
+    public IEnumerator GameClearCorutine()
     {
         if (isUiMoving/* || GameManager.Instance.gameState != DefineManager.GameState.PLAYING*/) yield break;
+
+        isGameClear = !isGameClear;
 
         float _alpha = 0;
         isUiMoving = true;
 
         gameClearObj.SetActive(true);
-        _alpha = 0;
 
-        while (_alpha <= 1)
+        if (isGameClear)
         {
-            _alpha += fadeUISpeed;
-            gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
-            yield return null;
+            levelText.gameObject.SetActive(false);
+            StageManager.Instance.StagePlus();
+
+            _alpha = 0;
+            while (_alpha <= 1)
+            {
+                _alpha += fadeUISpeed;
+                gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
+                yield return null;
+            }
+            GameManager.Instance.ChangeGameState(DefineManager.GameState.CLEAR);
         }
-        GameManager.Instance.ChangeGameState(DefineManager.GameState.CLEAR);
+        else
+        {
+            _alpha = 1;
+            while (_alpha >= 0)
+            {
+                _alpha -= fadeUISpeed;
+                gameClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
+                yield return null;
+            }
 
-
-
+            gameClearObj.SetActive(false);
+            GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
+        }
 
         isUiMoving = false;
         yield break;
     }
 
-    public IEnumerator LevelAnimation()
+    public IEnumerator LevelAnimationCorutine()
     {
-        levelText.gameObject.SetActive(false);
+        yield return GameClearCorutine();
 
-        yield return GameClearObjFadeOut();
+        yield return gameCountTextCorutine(false);
 
-        levelText.gameObject.SetActive(true);
+        StageManager.Instance.ResetStage();
 
-        StartCoroutine(gameCountTextCorutine(false));
+        yield break;
     }
 
-    public IEnumerator MenuObject()
+    public IEnumerator MenuObjectCorutine()
     {
         if (isUiMoving) yield break;
 
         float _alpha = 0;
         isUiMoving = true;
-
-
-
 
         gameStartImg.SetActive(true);
         _alpha = 0;
@@ -381,6 +388,22 @@ public class UIManager : MonoBehaviour
         isUiMoving = false;
         yield break;
     }
+
+    public IEnumerator FishAttackEffectCorutine()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            attackEffectImage.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.15f);
+            attackEffectImage.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.15f);
+        }
+
+        yield break;
+    }
+
+
+
 
     public void OnClickGoToMenu()
     {
@@ -417,7 +440,7 @@ public class UIManager : MonoBehaviour
     {
         if (SettingObj.activeSelf)
         {
-            StartCoroutine(SettingUIClick());
+            StartCoroutine(SettingUIClickCorutine());
         }
 
         if (gameClearObj.activeSelf)
@@ -425,13 +448,15 @@ public class UIManager : MonoBehaviour
             gameClearObj.SetActive(false);
         }
 
-        StartCoroutine(MenuFade());
+        StartCoroutine(MenuFadeCorutine());
     }
+
     public void OnClickNextLevel()
     {
-        StageManager.Instance.StagePlus();
+        StageManager.Instance.InstantiateFishObj();
+        levelText.gameObject.SetActive(true);
+        GameManager.Instance.Findfishies();
 
-        StartCoroutine(LevelAnimation());
+        StartCoroutine(LevelAnimationCorutine());
     }
-
 }
