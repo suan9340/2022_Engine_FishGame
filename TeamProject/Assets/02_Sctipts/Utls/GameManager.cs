@@ -37,10 +37,13 @@ public class GameManager : MonoBehaviour
 
     [Space(20)]
     [Header("Fishes")]
-    public Transform fishMom;
+    public GameObject fishMom;
     public float sharkMoveSpeed;
     public bool isFishAllDie = false;
+    public GameObject sharkObj = null;
     public List<GameObject> fishs = new List<GameObject>();
+
+    public GameObject[] fishes;
 
     [Space(20)]
     public bool isClear = false;
@@ -76,16 +79,20 @@ public class GameManager : MonoBehaviour
         gameState = _state;
     }
 
+
     public void Findfishies()
     {
+        fishes = GameObject.FindGameObjectsWithTag("FishMom");
 
         if (fishMom == null)
         {
-            fishMom = GameObject.Find("FishMOM").transform;
+            fishMom = fishes[1];
+            Debug.Log("°ª");
         }
+
         isClear = false;
 
-        foreach (Transform a in fishMom)
+        foreach (Transform a in fishMom.transform)
         {
             fishs.Add(a.gameObject);
         }
@@ -132,5 +139,6 @@ public class GameManager : MonoBehaviour
     {
         Destroy(fishMom.gameObject);
         fishMom = null;
+        fishs.Clear();
     }
 }

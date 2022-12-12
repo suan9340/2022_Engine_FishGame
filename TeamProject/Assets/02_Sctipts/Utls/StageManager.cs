@@ -52,7 +52,7 @@ public class StageManager : MonoBehaviour
         ResetStage();
     }
 
-   
+
     public void StagePlus()
     {
         clearLevelTxt.text = $"Level : {stageData.currentStage}";
@@ -70,9 +70,11 @@ public class StageManager : MonoBehaviour
         maxTime = stageData.stageBase[arrLvl].maxTime;
     }
 
-    public void InstantiateFishObj()
+    public void InstantiateFishObj(GameObject _shark)
     {
         Instantiate(LevelFishObj[arrLvl]);
+        Debug.Log("»ý¼º");
+        _shark.transform.position = stageData.stageBase[arrLvl].sharkFirstTrn;
     }
 
     public void ResetStage()
@@ -100,7 +102,6 @@ public class StageManager : MonoBehaviour
             {
                 isTimer = false;
                 GameManager.Instance.isClear = true;
-                Debug.Log("End");
                 UIManager.Instance.GameClearShowClear();
                 yield break;
             }

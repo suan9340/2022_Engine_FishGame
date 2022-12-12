@@ -18,8 +18,10 @@ public class StageBase
 {
     public string stageLevel;
 
-    [Space(10)]
+    [Space(20)]
     [Range(0, 100)]
     public float maxTime = 50;
+
+    public Vector3 sharkFirstTrn = Vector3.zero;
 }
 

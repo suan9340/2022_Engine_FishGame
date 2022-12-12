@@ -154,7 +154,7 @@ public class UIManager : MonoBehaviour
 
     public void GameClearShowClear()
     {
-        GameManager.Instance.RemoveFishMomTransform();
+
         StartCoroutine(GameClearCorutine());
     }
 
@@ -453,9 +453,13 @@ public class UIManager : MonoBehaviour
 
     public void OnClickNextLevel()
     {
-        StageManager.Instance.InstantiateFishObj();
-        levelText.gameObject.SetActive(true);
+        GameManager.Instance.RemoveFishMomTransform();
+
+        StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
+
         GameManager.Instance.Findfishies();
+
+        levelText.gameObject.SetActive(true);
 
         StartCoroutine(LevelAnimationCorutine());
     }

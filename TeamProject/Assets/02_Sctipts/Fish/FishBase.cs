@@ -294,6 +294,7 @@ public class FishBase : MonoBehaviour
         var a = ParticleManager.Instance.ParticleNames[0].particle.gameObject;
 
         GameObject _obj = Instantiate(a, transform.position, Quaternion.identity);
+        _obj.transform.SetParent(gameObject.transform);
 
         yield break;
     }
