@@ -39,6 +39,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Text currentLevelTxt = null;
     [SerializeField] private Text clearLevelTxt = null;
     private bool isTimer = false;
+    private bool isTimeStop = false;
 
     [Space(50)]
     [SerializeField] private List<GameObject> LevelFishObj = null;
@@ -98,6 +99,12 @@ public class StageManager : MonoBehaviour
 
         while (true)
         {
+            if (isTimeStop)
+            {
+                isTimer = false;
+                yield break;
+            }
+
             if (timerImage.fillAmount <= 0)
             {
                 isTimer = false;
@@ -110,5 +117,10 @@ public class StageManager : MonoBehaviour
             timerImage.fillAmount = _time / maxTime;
             yield return null;
         }
+    }
+
+    public void StageStop()
+    {
+        isTimeStop = true;
     }
 }

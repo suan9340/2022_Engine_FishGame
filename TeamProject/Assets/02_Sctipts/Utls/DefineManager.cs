@@ -18,5 +18,6 @@ public static class DefineManager
         PLAYING,
         SETTING,
         CLEAR,
+        DONTCLEAR,
     }
 }

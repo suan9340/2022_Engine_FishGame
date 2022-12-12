@@ -245,6 +245,7 @@ public class FishBase : MonoBehaviour
             isDie = true;
             myrigid.isKinematic = true;
 
+            UIManager.Instance.GameDonClear();
             StartCoroutine(FishDie());
             UIManager.Instance.FishAttackEffect();
         }

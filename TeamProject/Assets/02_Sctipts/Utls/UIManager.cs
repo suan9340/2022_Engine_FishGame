@@ -71,6 +71,13 @@ public class UIManager : MonoBehaviour
     private bool isGameClear = false;
 
 
+    [Space(50)]
+    [Header("GameDontClearUI")]
+    [SerializeField] private GameObject gameDonClearObj = null;
+    private bool isGameDonClear = false;
+
+
+
     private bool isSettingOn = false;
     private bool isReallySettingOn = false;
     private bool isUiMoving = false;
@@ -168,6 +175,14 @@ public class UIManager : MonoBehaviour
     {
         Camera.main.DOShakePosition(_dur, _str, _vib).OnComplete(() => { Camera.main.transform.position = new Vector3(0, 2.66f, -10); });
     }
+
+
+    public void GameDonClear()
+    {
+        StageManager.Instance.StageStop();
+        StartCoroutine(GameDonDlearCorutine());
+    }
+
 
     public IEnumerator gameCountTextCorutine(bool _isdelay)
     {
@@ -312,7 +327,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator GameClearCorutine()
     {
-        if (isUiMoving/* || GameManager.Instance.gameState != DefineManager.GameState.PLAYING*/) yield break;
+        if (isUiMoving) yield break;
 
         isGameClear = !isGameClear;
 
@@ -346,6 +361,45 @@ public class UIManager : MonoBehaviour
             }
 
             gameClearObj.SetActive(false);
+            GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
+        }
+
+        isUiMoving = false;
+        yield break;
+    }
+
+    public IEnumerator GameDonDlearCorutine()
+    {
+        if (isUiMoving) yield break;
+
+        isGameDonClear = !isGameDonClear;
+
+        float _alpha = 0;
+        isUiMoving = true;
+
+        if (isGameDonClear)
+        {
+            gameDonClearObj.SetActive(true);
+            _alpha = 0;
+            while (_alpha <= 1)
+            {
+                _alpha += fadeUISpeed;
+                gameDonClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
+                yield return null;
+            }
+            GameManager.Instance.ChangeGameState(DefineManager.GameState.DONTCLEAR);
+        }
+        else
+        {
+            _alpha = 1;
+            while (_alpha >= 0)
+            {
+                _alpha -= fadeUISpeed;
+                gameDonClearObj.GetComponent<CanvasGroup>().alpha = _alpha;
+                yield return null;
+            }
+
+            gameDonClearObj.SetActive(false);
             GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
         }
 
@@ -462,5 +516,12 @@ public class UIManager : MonoBehaviour
         levelText.gameObject.SetActive(true);
 
         StartCoroutine(LevelAnimationCorutine());
+    }
+
+    public void OnClickGameDonClickRestart()
+    {
+        StartCoroutine(GameDonDlearCorutine());
+
+
     }
 }

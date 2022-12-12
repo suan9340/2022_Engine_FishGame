@@ -43,11 +43,10 @@ public class GameManager : MonoBehaviour
     public GameObject sharkObj = null;
     public List<GameObject> fishs = new List<GameObject>();
 
-    public GameObject[] fishes;
+    private GameObject[] fishes;
 
     [Space(20)]
     public bool isClear = false;
-
 
     public void Awake()
     {
@@ -141,4 +140,5 @@ public class GameManager : MonoBehaviour
         fishMom = null;
         fishs.Clear();
     }
+
 }
