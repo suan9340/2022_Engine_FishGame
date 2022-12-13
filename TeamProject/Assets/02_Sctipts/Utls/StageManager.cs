@@ -74,13 +74,13 @@ public class StageManager : MonoBehaviour
     public void InstantiateFishObj(GameObject _shark)
     {
         Instantiate(LevelFishObj[arrLvl]);
-        Debug.Log("»ý¼º");
         _shark.transform.position = stageData.stageBase[arrLvl].sharkFirstTrn;
     }
 
+
     public void ResetStage()
     {
-        timerImage.fillAmount = 1f;
+        isTimeStop = false;
         ConnectCurrentStage();
         TimerSet();
     }
@@ -96,6 +96,7 @@ public class StageManager : MonoBehaviour
         isTimer = true;
 
         var _time = maxTime;
+        timerImage.fillAmount = 1f;
 
         while (true)
         {
@@ -107,6 +108,7 @@ public class StageManager : MonoBehaviour
 
             if (timerImage.fillAmount <= 0)
             {
+                GameManager.Instance.ResetFishCam();
                 isTimer = false;
                 GameManager.Instance.isClear = true;
                 UIManager.Instance.GameClearShowClear();
@@ -122,5 +124,10 @@ public class StageManager : MonoBehaviour
     public void StageStop()
     {
         isTimeStop = true;
+    }
+
+    public void timeImageFill()
+    {
+        timerImage.fillAmount = 1f;
     }
 }

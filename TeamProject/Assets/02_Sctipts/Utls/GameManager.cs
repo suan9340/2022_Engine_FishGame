@@ -73,11 +73,15 @@ public class GameManager : MonoBehaviour
         fishCam.transform.SetParent(_trn);
     }
 
+    public void ResetFishCam()
+    {
+        fishCam.transform.SetParent(null);
+    }
+
     public void ChangeGameState(DefineManager.GameState _state)
     {
         gameState = _state;
     }
-
 
     public void Findfishies()
     {
@@ -86,7 +90,6 @@ public class GameManager : MonoBehaviour
         if (fishMom == null)
         {
             fishMom = fishes[1];
-            Debug.Log("°ª");
         }
 
         isClear = false;
@@ -124,7 +127,7 @@ public class GameManager : MonoBehaviour
         }
         int _num = Random.Range(0, fishs.Count);
         Transform _trn = fishs[_num].gameObject.transform;
-        _obj.transform.DOMove(_trn.position, sharkMoveSpeed).SetEase(Ease.InCubic);
+        _obj.transform.DOMove(new Vector3(_trn.position.x, transform.position.y, -4.78f), sharkMoveSpeed).SetEase(Ease.InCubic);
 
         yield return new WaitForSeconds(sharkMoveSpeed);
     }

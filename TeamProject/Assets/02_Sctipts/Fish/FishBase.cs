@@ -119,6 +119,7 @@ public class FishBase : MonoBehaviour
     {
         if (GameManager.Instance.gameState != DefineManager.GameState.PLAYING || isDie)
         {
+            Debug.Log("qwe");
             return;
         }
 
@@ -126,11 +127,16 @@ public class FishBase : MonoBehaviour
 
         if (fishManagerSO.currrentFish != null)
         {
+            Debug.Log("qwe");
             fishManagerSO.mouseOnFish = fishManagerSO.currrentFish;
             return;
         }
 
-        if (isMousePointOn == _boolen) return;
+        if (isMousePointOn == _boolen)
+        {
+            Debug.Log("qwe");
+            return;
+        }
 
         UIManager.Instance.FishUION();
         GameManager.Instance.FishCamSetting(transform);
@@ -243,11 +249,15 @@ public class FishBase : MonoBehaviour
         {
             if (isDie) return;
             isDie = true;
+
+            StageManager.Instance.StageStop();
+            GameManager.Instance.ChangeGameState(DefineManager.GameState.DONTCLEAR);
+            UIManager.Instance.FishAttackEffect();
+            fishManagerSO.currrentFish = null;
             myrigid.isKinematic = true;
 
-            UIManager.Instance.GameDonClear();
+
             StartCoroutine(FishDie());
-            UIManager.Instance.FishAttackEffect();
         }
     }
 
@@ -257,6 +267,7 @@ public class FishBase : MonoBehaviour
         {
             if (!isDie) return;
 
+            UIManager.Instance.GameDonClear();
             StartCoroutine(DieParticle());
         }
     }
