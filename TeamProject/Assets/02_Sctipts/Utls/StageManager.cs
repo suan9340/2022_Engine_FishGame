@@ -97,6 +97,7 @@ public class StageManager : MonoBehaviour
 
         var _time = maxTime;
         timerImage.fillAmount = 1f;
+        Debug.Log(_time);
 
         while (true)
         {

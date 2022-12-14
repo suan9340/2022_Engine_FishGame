@@ -6645,7 +6645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.85754716, g: 0.89266676, b: 0.9528302, a: 0.09019608}
+  m_Color: {r: 0.764151, g: 0.15991174, b: 0.139854, a: 0.23921569}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9079,7 +9079,7 @@ PrefabInstance:
     - target: {fileID: 6563174848578870597, guid: 2703dbf784cdc114ea8ff0d60a71efaf,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6563174848578870597, guid: 2703dbf784cdc114ea8ff0d60a71efaf,
         type: 3}
@@ -9135,6 +9135,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974692395330638763, guid: 2703dbf784cdc114ea8ff0d60a71efaf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974692395330638763, guid: 2703dbf784cdc114ea8ff0d60a71efaf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974692395330638763, guid: 2703dbf784cdc114ea8ff0d60a71efaf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2703dbf784cdc114ea8ff0d60a71efaf, type: 3}
@@ -9194,7 +9209,6 @@ GameObject:
   - component: {fileID: 257738131}
   - component: {fileID: 257738126}
   - component: {fileID: 7987475376140283387}
-  - component: {fileID: 7987475376140283388}
   m_Layer: 0
   m_Name: SharkV1
   m_TagString: Shark
@@ -9493,23 +9507,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4108424097152807243, guid: ca38d4485fce19f4aa0d3d7bdd8b6cf2, type: 3}
---- !u!95 &7987475376140283388
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5925960515707353317}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cf5236f20104bad4785e32723e1a24f8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0

@@ -163,7 +163,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.gameState == DefineManager.GameState.DONTCLEAR) return;
 
-        
+        GameManager.Instance.ResetFishCam();
         StartCoroutine(GameClearCorutine());
     }
 
@@ -183,7 +183,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.gameState == DefineManager.GameState.CLEAR) return;
 
-        GameManager.Instance.ResetFishCam();
+        
         StageManager.Instance.StageStop();
         StartCoroutine(GameDonDlearCorutine());
     }
@@ -523,6 +523,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickNextLevel()
     {
+        GameManager.Instance.ResetFishCam();
+
         GameManager.Instance.RemoveFishMomTransform();
 
         StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
@@ -536,6 +538,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickGameDonClickRestart()
     {
+        GameManager.Instance.ResetFishCam();
+
         StageManager.Instance.timeImageFill();
 
         GameManager.Instance.RemoveFishMomTransform();

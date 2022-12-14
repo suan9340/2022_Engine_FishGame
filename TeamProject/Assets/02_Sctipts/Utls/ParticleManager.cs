@@ -27,6 +27,11 @@ public class ParticleManager : MonoBehaviour
     #endregion
 
     public List<ParticleName> ParticleNames = new List<ParticleName>();
+
+    public void InstantiateParticle(ParticleName _num)
+    {
+
+    }
 }
 
 
