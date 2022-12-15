@@ -283,11 +283,7 @@ public class FishBase : MonoBehaviour
         myrigid.useGravity = true;
         myrigid.isKinematic = false;
 
-        var b = ParticleManager.Instance.ParticleNames[1].particle.gameObject;
-        GameObject _obj2 = Instantiate(b, transform.position, Quaternion.identity);
-        _obj2.transform.position = new Vector3(transform.position.x, transform.position.y, -2f);
-
-        Destroy(_obj2, 1.5f);
+        ParticleManager.Instance.AddParticle(ParticleManager.ParticleType.BubbleParticle, new Vector3(transform.position.x, transform.position.y, -2f));
         GameManager.Instance.RemoveFishList(gameObject);
         yield break;
     }
@@ -303,10 +299,8 @@ public class FishBase : MonoBehaviour
         isDieParticle = true;
 
         yield return new WaitForSeconds(1f);
-        var a = ParticleManager.Instance.ParticleNames[0].particle.gameObject;
 
-        GameObject _obj = Instantiate(a, transform.position, Quaternion.identity);
-        _obj.transform.SetParent(gameObject.transform);
+        ParticleManager.Instance.AddParticle(ParticleManager.ParticleType.FishDie, transform.position);
 
         yield break;
     }
