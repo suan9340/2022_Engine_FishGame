@@ -46,6 +46,7 @@ public class StageManager : MonoBehaviour
     private void Awake()
     {
         stageData = Resources.Load<StageData>("SO/StageData");
+        ConnectCurrentStage();
     }
 
     private void Start()
@@ -68,6 +69,7 @@ public class StageManager : MonoBehaviour
         currentLvl = stageData.currentStage;
         arrLvl = stageData.currentStage - 1;
         currentLevelTxt.text = $"Level {currentLvl}";
+        Debug.Log(arrLvl);
         maxTime = stageData.stageBase[arrLvl].maxTime;
     }
 

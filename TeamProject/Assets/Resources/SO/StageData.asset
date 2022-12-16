@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd5104fc2a9b6b4fb84ceff73a16962, type: 3}
   m_Name: StageData
   m_EditorClassIdentifier: 
-  currentStage: 1
+  currentStage: 4
   stageBase:
   - stageLevel: 1
     maxTime: 2
@@ -27,7 +27,7 @@ MonoBehaviour:
     maxTime: 5
     sharkFirstTrn: {x: -10.99, y: 1.31, z: -4.78}
   - stageLevel: 5
-    maxTime: 50
+    maxTime: 5
     sharkFirstTrn: {x: -10.99, y: 7.11, z: -4.78}
   - stageLevel: 6
     maxTime: 50

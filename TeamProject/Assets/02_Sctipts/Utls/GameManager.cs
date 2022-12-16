@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
+        StageManager.Instance.InstantiateFishObj(sharkObj);
         Findfishies();
     }
 
@@ -87,10 +89,15 @@ public class GameManager : MonoBehaviour
     {
         fishes = GameObject.FindGameObjectsWithTag("FishMom");
 
-        if (fishMom == null)
+        if (fishes[0] == null)
         {
             fishMom = fishes[1];
         }
+        else
+        {
+            fishMom = fishes[0];
+        }
+
 
         isClear = false;
 
