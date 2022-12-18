@@ -27,10 +27,6 @@ public class ParticleManager : MonoBehaviour
     }
 
     #endregion
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
 
     #region 인터페이스
 

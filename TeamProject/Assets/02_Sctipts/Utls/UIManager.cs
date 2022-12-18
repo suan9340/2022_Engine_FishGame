@@ -134,6 +134,7 @@ public class UIManager : MonoBehaviour
         gameStartImg.transform.DOScale(new Vector3(9f, 9f, 9f), startAnimationSpeed).SetEase(Ease.Unset);
         gameStartbackImg.DOFade(0f, startAnimationSpeed);
         Invoke(nameof(StartGameState), startAnimationSpeed);
+
         StartCoroutine(gameCountTextCorutine(true));
     }
 

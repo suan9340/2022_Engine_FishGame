@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     [Space(20)]
     public bool isClear = false;
 
-    public void Awake()
+    private void Start()
     {
         StageManager.Instance.InstantiateFishObj(sharkObj);
         Findfishies();
