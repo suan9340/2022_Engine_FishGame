@@ -140,7 +140,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(gameCountTextCorutine(true));
 
         GameManager.Instance.Findfishies();
-        //StageManager.Instance.ResetStage();
+        
     }
 
     public void OnClickExit()
@@ -213,6 +213,7 @@ public class UIManager : MonoBehaviour
             {
                 gameCountText.fontSize = 72;
                 gameCountText.text = $"상어를 피해 도망치세요!";
+                StageManager.Instance.ResetStage();
             }
             else
             {

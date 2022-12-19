@@ -7255,9 +7255,10 @@ MonoBehaviour:
   gameState: 0
   fishMom: {fileID: 0}
   sharkMoveSpeed: 2
-  isFishAllDie: 0
+  isFishDie: 0
   sharkObj: {fileID: 5925960515707353317}
   fishs: []
+  fishes: []
   isClear: 0
 --- !u!4 &1463618921
 Transform:

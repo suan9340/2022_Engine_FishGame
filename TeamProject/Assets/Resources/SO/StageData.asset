@@ -15,10 +15,10 @@ MonoBehaviour:
   currentStage: 2
   stageBase:
   - stageLevel: 1
-    maxTime: 2
+    maxTime: 5
     sharkFirstTrn: {x: 11.01, y: 5.97, z: -4.78}
   - stageLevel: 2
-    maxTime: 3
+    maxTime: 36.2
     sharkFirstTrn: {x: 11.01, y: -0.71, z: -4.78}
   - stageLevel: 3
     maxTime: 4

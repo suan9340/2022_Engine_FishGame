@@ -248,6 +248,8 @@ public class FishBase : MonoBehaviour
             if (isDie) return;
             isDie = true;
 
+            GameManager.Instance.isFishDie = true;
+
             StageManager.Instance.StageStop();
             GameManager.Instance.ChangeGameState(DefineManager.GameState.DONTCLEAR);
             UIManager.Instance.FishAttackEffect();

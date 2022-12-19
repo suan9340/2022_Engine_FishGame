@@ -41,11 +41,11 @@ public class GameManager : MonoBehaviour
     [Header("Fishes")]
     public GameObject fishMom;
     public float sharkMoveSpeed;
-    public bool isFishAllDie = false;
+    public bool isFishDie = false;
     public GameObject sharkObj = null;
     public List<GameObject> fishs = new List<GameObject>();
 
-    GameObject[] fishes;
+    public GameObject[] fishes;
 
     [Space(20)]
     public bool isClear = false;
@@ -88,18 +88,28 @@ public class GameManager : MonoBehaviour
 
     public void Findfishies()
     {
+        isFishDie = false;
         fishes = GameObject.FindGameObjectsWithTag("FishMom");
-
-        if (fishes[0] == null)
-        {
-            fishMom = fishes[1];
-        }
-        else
+        ;
+        if (fishes.Length == 1)
         {
             fishMom = fishes[0];
         }
+        else
+        {
+            if (fishes[0] != null)
+            {
+                fishMom = fishes[1];
+                Debug.Log($"0 번째는 null");
+            }
+            else
+            {
+                fishMom = fishes[0];
+                Debug.Log($"1 번째는 null");
+            }
+        }
 
-        Debug.Log(fishMom.transform.childCount);
+        //Debug.Log(fishMom.transform.childCount);
 
         isClear = false;
 
@@ -121,7 +131,6 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            if (isFishAllDie) yield break;
             yield return FishAttacks(_obj);
         }
     }
@@ -129,14 +138,6 @@ public class GameManager : MonoBehaviour
     public IEnumerator FishAttacks(GameObject _obj)
     {
         if (gameState != DefineManager.GameState.PLAYING) yield break;
-
-        if (fishs.Count == 0)
-        {
-            isFishAllDie = true;
-            Debug.Log("물고기 다죽었지롱");
-
-            yield break;
-        }
 
         SoundManager.Instance.PlayerAttackSound(0);
         int _num = Random.Range(0, fishs.Count);
