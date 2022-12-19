@@ -136,6 +136,9 @@ public class UIManager : MonoBehaviour
         Invoke(nameof(StartGameState), startAnimationSpeed);
 
         StartCoroutine(gameCountTextCorutine(true));
+
+        StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
+        GameManager.Instance.Findfishies();
     }
 
     public void OnClickExit()
@@ -184,7 +187,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.gameState == DefineManager.GameState.CLEAR) return;
 
-        
+
         StageManager.Instance.StageStop();
         StartCoroutine(GameDonDlearCorutine());
     }

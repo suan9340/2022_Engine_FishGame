@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd5104fc2a9b6b4fb84ceff73a16962, type: 3}
   m_Name: StageData
   m_EditorClassIdentifier: 
-  currentStage: 11
+  currentStage: 1
   stageBase:
   - stageLevel: 1
     maxTime: 2

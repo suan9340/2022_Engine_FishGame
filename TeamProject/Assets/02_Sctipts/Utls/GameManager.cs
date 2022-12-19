@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StageManager.Instance.InstantiateFishObj(sharkObj);
-        Findfishies();
+        //StageManager.Instance.InstantiateFishObj(sharkObj);
+        //Findfishies();
     }
 
     public bool CheckCurrentFish()

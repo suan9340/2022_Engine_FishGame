@@ -7011,7 +7011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentFish: {fileID: 0}
   fishCam: {fileID: 1106825393}
-  gameState: 1
+  gameState: 0
   fishMom: {fileID: 0}
   sharkMoveSpeed: 2
   isFishAllDie: 0
