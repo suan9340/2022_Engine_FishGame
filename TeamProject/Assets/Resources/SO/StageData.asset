@@ -19,7 +19,7 @@ MonoBehaviour:
     sharkFirstTrn: {x: 11.01, y: 5.97, z: -4.78}
   - stageLevel: 2
     maxTime: 36.2
-    sharkFirstTrn: {x: 11.01, y: -0.71, z: -4.78}
+    sharkFirstTrn: {x: 9.18, y: 1.55, z: -4.78}
   - stageLevel: 3
     maxTime: 4
     sharkFirstTrn: {x: 11.01, y: 0.68, z: -4.78}

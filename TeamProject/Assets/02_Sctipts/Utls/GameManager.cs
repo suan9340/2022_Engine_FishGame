@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Jobs;
+using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
@@ -49,6 +50,10 @@ public class GameManager : MonoBehaviour
 
     [Space(20)]
     public bool isClear = false;
+
+    [Space(20)]
+    public GameObject sharkEye = null;
+
 
     private void Start()
     {
@@ -100,16 +105,12 @@ public class GameManager : MonoBehaviour
             if (fishes[0] != null)
             {
                 fishMom = fishes[1];
-                Debug.Log($"0 번째는 null");
             }
             else
             {
                 fishMom = fishes[0];
-                Debug.Log($"1 번째는 null");
             }
         }
-
-        //Debug.Log(fishMom.transform.childCount);
 
         isClear = false;
 
@@ -139,10 +140,12 @@ public class GameManager : MonoBehaviour
     {
         if (gameState != DefineManager.GameState.PLAYING) yield break;
 
+        StartCoroutine(SharkEyesCoroutine());
         SoundManager.Instance.PlayerAttackSound(0);
         int _num = Random.Range(0, fishs.Count);
         Transform _trn = fishs[_num].gameObject.transform;
-        _obj.transform.DOMove(new Vector3(_trn.position.x, transform.position.y, -4.78f), sharkMoveSpeed).SetEase(Ease.InCubic);
+        Debug.Log(new Vector3(_trn.transform.position.x, _trn.transform.position.y, _trn.transform.position.z));
+        _obj.transform.DOMove(new Vector3(_trn.position.x, transform.position.y, sharkMoveSpeed), sharkMoveSpeed).SetEase(Ease.InCubic);
 
         yield return new WaitForSeconds(sharkMoveSpeed);
     }
@@ -159,4 +162,16 @@ public class GameManager : MonoBehaviour
         fishs.Clear();
     }
 
+    public IEnumerator SharkEyesCoroutine()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            sharkEye.SetActive(true);
+            yield return new WaitForSeconds(0.05f);
+            sharkEye.SetActive(false);
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        yield break;
+    }
 }
