@@ -38,7 +38,7 @@ public class FishBase : MonoBehaviour
     private MeshCollider myMeshCol;
     private FishManagerSO fishManagerSO;
 
-    private void Awake()
+    private void Start()
     {
         ConnectingRatingFish();
         Cashing();
@@ -119,7 +119,6 @@ public class FishBase : MonoBehaviour
     {
         if (GameManager.Instance.gameState != DefineManager.GameState.PLAYING || isDie)
         {
-            Debug.Log("qwe");
             return;
         }
 
@@ -127,7 +126,6 @@ public class FishBase : MonoBehaviour
 
         if (fishManagerSO.currrentFish != null)
         {
-            Debug.Log("qwe");
             fishManagerSO.mouseOnFish = fishManagerSO.currrentFish;
             return;
         }

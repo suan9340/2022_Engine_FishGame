@@ -49,13 +49,7 @@ public class StageManager : MonoBehaviour
         ConnectCurrentStage();
     }
 
-    private void Start()
-    {
-       
-    }
-
-
-    public void StagePlus()
+  public void StagePlus()
     {
         clearLevelTxt.text = $"Level : {stageData.currentStage}";
         stageData.currentStage++;
@@ -69,7 +63,6 @@ public class StageManager : MonoBehaviour
         currentLvl = stageData.currentStage;
         arrLvl = stageData.currentStage - 1;
         currentLevelTxt.text = $"Level {currentLvl}";
-        Debug.Log(arrLvl);
         maxTime = stageData.stageBase[arrLvl].maxTime;
     }
 
@@ -84,11 +77,6 @@ public class StageManager : MonoBehaviour
     {
         isTimeStop = false;
         ConnectCurrentStage();
-        TimerSet();
-    }
-
-    public void TimerSet()
-    {
         StartCoroutine(TimerSetCorutine());
     }
 

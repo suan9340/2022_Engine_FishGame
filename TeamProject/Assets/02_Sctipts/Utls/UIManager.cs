@@ -135,10 +135,12 @@ public class UIManager : MonoBehaviour
         gameStartbackImg.DOFade(0f, startAnimationSpeed);
         Invoke(nameof(StartGameState), startAnimationSpeed);
 
+        StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
+
         StartCoroutine(gameCountTextCorutine(true));
 
-        StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
         GameManager.Instance.Findfishies();
+        //StageManager.Instance.ResetStage();
     }
 
     public void OnClickExit()

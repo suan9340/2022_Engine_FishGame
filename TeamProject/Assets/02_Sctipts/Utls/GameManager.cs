@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Jobs;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     public GameObject sharkObj = null;
     public List<GameObject> fishs = new List<GameObject>();
 
-    private GameObject[] fishes;
+    GameObject[] fishes;
 
     [Space(20)]
     public bool isClear = false;
@@ -98,12 +99,16 @@ public class GameManager : MonoBehaviour
             fishMom = fishes[0];
         }
 
+        Debug.Log(fishMom.transform.childCount);
 
         isClear = false;
 
+        fishs.Clear();
+
         foreach (Transform a in fishMom.transform)
         {
-            fishs.Add(a.gameObject);
+            if (a != null)
+                fishs.Add(a.gameObject);
         }
     }
 
@@ -133,6 +138,7 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
+        SoundManager.Instance.PlayerAttackSound(0);
         int _num = Random.Range(0, fishs.Count);
         Transform _trn = fishs[_num].gameObject.transform;
         _obj.transform.DOMove(new Vector3(_trn.position.x, transform.position.y, -4.78f), sharkMoveSpeed).SetEase(Ease.InCubic);
