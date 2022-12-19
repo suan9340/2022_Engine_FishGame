@@ -248,16 +248,18 @@ public class FishBase : MonoBehaviour
             if (isDie) return;
             isDie = true;
 
+            Destroy(gameObject);
+
             GameManager.Instance.isFishDie = true;
 
             StageManager.Instance.StageStop();
             GameManager.Instance.ChangeGameState(DefineManager.GameState.DONTCLEAR);
             UIManager.Instance.FishAttackEffect();
+
             fishManagerSO.currrentFish = null;
-            myrigid.isKinematic = true;
 
-
-            StartCoroutine(FishDie());
+            ParticleManager.Instance.AddParticle(ParticleManager.ParticleType.BubbleParticle, new Vector3(transform.position.x, transform.position.y, -2f));
+            //StartCoroutine(FishDie());
         }
     }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efec9b63989d1cb488d1a49ab77d3285, type: 3}
   m_Name: Diamond
   m_EditorClassIdentifier: 
-  fishname: "Diamond\uBB3C\uACE0\uAE30"
+  fishname: "Epic\uBB3C\uACE0\uAE30"
   rating: 3
   speed: 8
   outlineColor: {r: 0.7085363, g: 0.37123528, b: 0.8301887, a: 1}
