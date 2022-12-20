@@ -247,7 +247,7 @@ SpriteRenderer:
   m_Size: {x: 4.43, y: 3.03}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &4377545641794124004
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rating: 0
-  maxPower: 6
+  maxPower: 8
   gravity: 0
   slowMotion: 0.02
   shootWhileMoving: 1

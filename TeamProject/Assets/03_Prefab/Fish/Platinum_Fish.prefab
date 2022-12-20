@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rating: 2
-  maxPower: 10
+  maxPower: 13
   gravity: 0
   slowMotion: 0.02
   shootWhileMoving: 1

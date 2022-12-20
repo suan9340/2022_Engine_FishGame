@@ -146,6 +146,9 @@ public class DragAndShoot2 : MonoBehaviour
         fishManagerSO.currrentFish = fishInfo;
 
         ParticleManager.Instance.AddParticle(ParticleManager.ParticleType.ScreenClick, transform.position);
+        ParticleManager.Instance.AddParticle(ParticleManager.ParticleType.ScreenClickRing, transform.position);
+        SoundManager.Instance.SoundAudio(4);
+
         if (shootWhileMoving)
         {
             Vector2 dir = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);

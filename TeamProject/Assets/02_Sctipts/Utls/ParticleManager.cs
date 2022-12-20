@@ -35,6 +35,7 @@ public class ParticleManager : MonoBehaviour
         BubbleParticle,
         FishDie,
         ScreenClick,
+        ScreenClickRing,
     }
 
     /// <summary>
@@ -69,6 +70,15 @@ public class ParticleManager : MonoBehaviour
                     particleDic[pt] = Resources.Load<GameObject>("VFX/Click");
                 }
                 break;
+
+
+            case ParticleType.ScreenClickRing:
+                if (false == particleDic.ContainsKey(pt))
+                {
+                    particleDic[pt] = Resources.Load<GameObject>("VFX/OnShotClick");
+                }
+                break;
+
 
             default:
                 Debug.LogWarning("아직 연결하지 않은 파티클");
