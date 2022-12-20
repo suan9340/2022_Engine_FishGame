@@ -121,11 +121,13 @@ public class GameManager : MonoBehaviour
     {
         if (gameState != DefineManager.GameState.PLAYING) yield break;
 
-        SoundManager.Instance.PlayerAttackSound(0);
         int _num = Random.Range(0, fishs.Count);
-        Transform _trn = fishs[_num].gameObject.transform;
-        //Debug.Log(new Vector3(_trn.transform.position.x, _trn.transform.position.y, _trn.transform.position.z));
-        _obj.transform.DOMove(new Vector3(_trn.position.x, transform.position.y, sharkMoveSpeed), sharkMoveSpeed).SetEase(Ease.InCubic);
+        SoundManager.Instance.SoundAudio(3);
+
+
+        var _trn = fishs[_num].gameObject.transform.position;
+        _obj.transform.DOMove(_trn, sharkMoveSpeed).SetEase(Ease.InCubic);
+
 
         yield return new WaitForSeconds(sharkMoveSpeed);
     }

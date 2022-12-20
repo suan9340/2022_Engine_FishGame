@@ -317,8 +317,9 @@ public class DragAndShoot2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag(ConstantManager.TAG_SHARK))
         {
-            if (isDie) return;
+            if (isDie || GameManager.Instance.isFishDie) return;
             isDie = true;
+
 
             Destroy(gameObject);
 
@@ -330,7 +331,7 @@ public class DragAndShoot2 : MonoBehaviour
 
             fishManagerSO.currrentFish = null;
 
-            SoundManager.Instance.PlayerAttackSound(2);
+            SoundManager.Instance.SoundAudio(1);
             ParticleManager.Instance.AddParticle(ParticleManager.ParticleType.BubbleParticle, new Vector3(transform.position.x, transform.position.y, -2f));
             UIManager.Instance.GameDonClear();
         }

@@ -95,7 +95,6 @@ public class StageManager : MonoBehaviour
             {
                 isTimer = false;
                 _time = maxTime;
-                Debug.Log(_time);
                 yield break;
             }
 

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
     #region SingleTon
@@ -27,24 +27,57 @@ public class SoundManager : MonoBehaviour
     #endregion
 
 
-    private AudioSource myAudio = null;
+    public List<AudioSource> vfxAudioSource = new List<AudioSource>();
+    public AudioSource bgmAudioSource = null;
 
-    public AudioClip[] sound;
+    [Space(50)]
+    public Slider bgmSlider = null;
+    public Slider vfxSlider = null;
 
-    public AudioSource[] source;
+    public float bgmVol = 1f;
+    public float vfxVol = 1f;
+
 
     private void Start()
     {
-        myAudio = GetComponent<AudioSource>();
+        bgmVol = PlayerPrefs.GetFloat(ConstantManager.BACK_VOL, 1f);
+        bgmSlider.value = bgmVol;
+        bgmAudioSource.volume = bgmSlider.value;
+
+        vfxVol = PlayerPrefs.GetFloat(ConstantManager.VFX_VOL, 1f);
+        vfxSlider.value = vfxVol;
+        //vfxAudioSource.volume = vfxSlider.value;
     }
 
-    public void PlayerAttackSound(int num)
+    //public void PlayerAttackSound(int num)
+    //{
+    //    vfxAudioSource.PlayOneShot(sound[num]);
+    //}
+
+    //public void ButtonClick()
+    //{
+    //    source[0].Play();
+    //}
+
+    public void SoundAudio(int _num)
     {
-        myAudio.PlayOneShot(sound[num]);
+        vfxAudioSource[_num].volume = vfxVol;
+
+        vfxAudioSource[_num].Play();
     }
 
-    public void ButtonClick()
+    public void BGMSlider()
     {
-        source[0].Play();
+        bgmAudioSource.volume = bgmSlider.value;
+
+        bgmVol = bgmSlider.value;
+        PlayerPrefs.SetFloat(ConstantManager.BACK_VOL, bgmVol);
+    }
+
+    public void VFXSlider()
+    {
+        //vfxAudioSource.volume = vfxSlider.value;
+        vfxVol = vfxSlider.value;
+        PlayerPrefs.SetFloat(ConstantManager.VFX_VOL, vfxVol);
     }
 }

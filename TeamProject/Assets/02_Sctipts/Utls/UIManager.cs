@@ -99,6 +99,7 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (GameManager.Instance.gameState != DefineManager.GameState.PLAYING) return;
             OnClickSetting();
         }
 
@@ -129,8 +130,9 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStart()
     {
+        SoundManager.Instance.SoundAudio(2);
+
         //gameStartImg.SetActive(false);
-        SoundManager.Instance.ButtonClick();
         gameStartImg.transform.DOScale(new Vector3(9f, 9f, 9f), startAnimationSpeed).SetEase(Ease.Unset);
         gameStartbackImg.DOFade(0f, startAnimationSpeed);
         Invoke(nameof(StartGameState), startAnimationSpeed);
@@ -140,13 +142,13 @@ public class UIManager : MonoBehaviour
         StartCoroutine(gameCountTextCorutine(true));
 
         GameManager.Instance.Findfishies();
-        SoundManager.Instance.PlayerAttackSound(1);
 
     }
 
     public void OnClickExit()
     {
-        SoundManager.Instance.ButtonClick();
+        SoundManager.Instance.SoundAudio(0);
+
         Debug.Log("GameOut");
         Application.Quit();
     }
@@ -244,9 +246,10 @@ public class UIManager : MonoBehaviour
         float _alpha = 0;
         isUiMoving = true;
 
+
+        SoundManager.Instance.SoundAudio(0);
         if (isSettingOn)
         {
-            SoundManager.Instance.ButtonClick();
             GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
 
 
@@ -309,9 +312,9 @@ public class UIManager : MonoBehaviour
         float _alpha = 0;
         isUiMoving = true;
 
+        SoundManager.Instance.SoundAudio(0);
         if (isReallySettingOn)
         {
-            SoundManager.Instance.ButtonClick();
             ReallySettingDownObj.SetActive(true);
             _alpha = 0;
 
@@ -492,11 +495,8 @@ public class UIManager : MonoBehaviour
     }
 
 
-
-
     public void OnClickGoToMenu()
     {
-        SoundManager.Instance.ButtonClick();
         ReallyOutSettingText.text = settingText[0];
 
         OnClickReallySettingOut();
@@ -504,7 +504,6 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStageRestart()
     {
-        SoundManager.Instance.ButtonClick();
         ReallyOutSettingText.text = settingText[1];
 
         OnClickReallySettingOut();
@@ -514,6 +513,7 @@ public class UIManager : MonoBehaviour
     {
         if (ReallyOutSettingText.text == settingText[0])
         {
+            SoundManager.Instance.SoundAudio(0);
             SceneManager.LoadScene(0);
         }
         else if (ReallyOutSettingText.text == settingText[1])
@@ -531,6 +531,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickReallySettingNo()
     {
+
         OnClickReallySettingOut();
     }
 
@@ -551,7 +552,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickNextLevel()
     {
-        SoundManager.Instance.ButtonClick();
+        SoundManager.Instance.SoundAudio(0);
+
         GameManager.Instance.RemoveFishMomTransform();
 
         StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
@@ -565,7 +567,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickGameDonClickRestart()
     {
-        SoundManager.Instance.ButtonClick();
+        SoundManager.Instance.SoundAudio(0);
+
         StageManager.Instance.timeImageFill();
 
         GameManager.Instance.RemoveFishMomTransform();
