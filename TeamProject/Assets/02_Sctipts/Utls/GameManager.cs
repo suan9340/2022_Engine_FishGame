@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
 
     public FishBase currentFish;
 
-    public Camera fishCam = null;
-
     [Space(20)]
     public DefineManager.GameState gameState;
 
@@ -67,19 +65,6 @@ public class GameManager : MonoBehaviour
         {
             return true;
         }
-    }
-
-    public void FishCamSetting(Transform _trn)
-    {
-        fishCam.transform.position = new Vector3(_trn.position.x, _trn.position.y, -10f);
-
-        if (fishCam.transform.parent == _trn) return;
-        fishCam.transform.SetParent(_trn);
-    }
-
-    public void ResetFishCam()
-    {
-        fishCam.transform.SetParent(null);
     }
 
     public void ChangeGameState(DefineManager.GameState _state)
@@ -136,7 +121,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameState != DefineManager.GameState.PLAYING) yield break;
 
-        //SoundManager.Instance.PlayerAttackSound(0);
+        SoundManager.Instance.PlayerAttackSound(0);
         int _num = Random.Range(0, fishs.Count);
         Transform _trn = fishs[_num].gameObject.transform;
         //Debug.Log(new Vector3(_trn.transform.position.x, _trn.transform.position.y, _trn.transform.position.z));

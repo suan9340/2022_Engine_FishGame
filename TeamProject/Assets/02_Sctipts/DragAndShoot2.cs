@@ -46,13 +46,13 @@ public class DragAndShoot2 : MonoBehaviour
         rb.gravityScale = gravity;
         direction = transform.GetChild(0);
         screenLine = direction.GetComponent<LineRenderer>();
-        outline = GetComponent<Outline>();
+        outline = GetComponentInChildren<Outline>();
 
         ConnectingRatingFish();
 
 
         outline.enabled = false;
-        //outline.OutlineColor = fishInfo.outlineColor;
+        outline.OutlineColor = fishInfo.outlineColor;
         fishManagerSO.mouseOnFish = null;
 
     }
@@ -138,7 +138,6 @@ public class DragAndShoot2 : MonoBehaviour
     {
         isCharging = true;
         fishManagerSO.currrentFish = fishInfo;
-        GameManager.Instance.FishCamSetting(transform);
 
         if (shootWhileMoving)
         {
@@ -261,9 +260,6 @@ public class DragAndShoot2 : MonoBehaviour
 
     void DrawScreenLine()
     {
-
-
-
         screenLine.positionCount = 1;
         screenLine.SetPosition(0, startMousePos);
 
@@ -305,16 +301,15 @@ public class DragAndShoot2 : MonoBehaviour
         }
 
         UIManager.Instance.FishUION();
-        GameManager.Instance.FishCamSetting(transform);
 
         isMousePointOn = _boolen;
 
         outline.enabled = _boolen;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.CompareTag(ConstantManager.TAG_SHARK))
+        if (other.gameObject.CompareTag(ConstantManager.TAG_SHARK))
         {
             if (isDie) return;
             isDie = true;
@@ -329,8 +324,14 @@ public class DragAndShoot2 : MonoBehaviour
 
             fishManagerSO.currrentFish = null;
 
+            SoundManager.Instance.PlayerAttackSound(2);
             ParticleManager.Instance.AddParticle(ParticleManager.ParticleType.BubbleParticle, new Vector3(transform.position.x, transform.position.y, -2f));
             UIManager.Instance.GameDonClear();
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+
     }
 }

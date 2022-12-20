@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image fishSpeed = null;
     [SerializeField] private Image fishIcon = null;
     private bool isFishUI = false;
+    [SerializeField] private List<Image> fishImages = new List<Image>();
 
 
     [Space(50)]
@@ -131,6 +132,7 @@ public class UIManager : MonoBehaviour
     public void OnClickStart()
     {
         //gameStartImg.SetActive(false);
+        SoundManager.Instance.ButtonClick();
         gameStartImg.transform.DOScale(new Vector3(9f, 9f, 9f), startAnimationSpeed).SetEase(Ease.Unset);
         gameStartbackImg.DOFade(0f, startAnimationSpeed);
         Invoke(nameof(StartGameState), startAnimationSpeed);
@@ -140,11 +142,13 @@ public class UIManager : MonoBehaviour
         StartCoroutine(gameCountTextCorutine(true));
 
         GameManager.Instance.Findfishies();
-        
+        SoundManager.Instance.PlayerAttackSound(1); 
+
     }
 
     public void OnClickExit()
     {
+        SoundManager.Instance.ButtonClick();
         Debug.Log("GameOut");
         Application.Quit();
     }
@@ -169,7 +173,6 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.gameState == DefineManager.GameState.DONTCLEAR) return;
 
-        GameManager.Instance.ResetFishCam();
         StartCoroutine(GameClearCorutine());
     }
 
@@ -243,6 +246,7 @@ public class UIManager : MonoBehaviour
         float _alpha = 0;
         isUiMoving = true;
 
+        SoundManager.Instance.ButtonClick();
         if (isSettingOn)
         {
             GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
@@ -307,6 +311,7 @@ public class UIManager : MonoBehaviour
         float _alpha = 0;
         isUiMoving = true;
 
+        SoundManager.Instance.ButtonClick();
         if (isReallySettingOn)
         {
             ReallySettingDownObj.SetActive(true);
@@ -484,6 +489,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickGoToMenu()
     {
+        SoundManager.Instance.ButtonClick();
         ReallyOutSettingText.text = settingText[0];
 
         OnClickReallySettingOut();
@@ -491,6 +497,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStageRestart()
     {
+        SoundManager.Instance.ButtonClick();
         ReallyOutSettingText.text = settingText[1];
 
         OnClickReallySettingOut();
@@ -530,8 +537,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickNextLevel()
     {
-        GameManager.Instance.ResetFishCam();
-
+        SoundManager.Instance.ButtonClick();
         GameManager.Instance.RemoveFishMomTransform();
 
         StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
@@ -545,8 +551,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickGameDonClickRestart()
     {
-        GameManager.Instance.ResetFishCam();
-
+        SoundManager.Instance.ButtonClick();
         StageManager.Instance.timeImageFill();
 
         GameManager.Instance.RemoveFishMomTransform();
@@ -557,5 +562,22 @@ public class UIManager : MonoBehaviour
 
         StartCoroutine(ReLevelAnimationCorutine());
 
+    }
+
+    public void SelectFishImage(int _num)
+    {
+        if (fishImages[0].gameObject.activeSelf)
+            fishImages[0].gameObject.SetActive(false);
+
+        if (fishImages[1].gameObject.activeSelf)
+            fishImages[1].gameObject.SetActive(false);
+
+        if (fishImages[2].gameObject.activeSelf)
+            fishImages[2].gameObject.SetActive(false);
+
+        if (fishImages[3].gameObject.activeSelf)
+            fishImages[3].gameObject.SetActive(false);
+
+        fishImages[_num].gameObject.SetActive(true);
     }
 }

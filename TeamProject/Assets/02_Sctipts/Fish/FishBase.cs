@@ -137,7 +137,6 @@ public class FishBase : MonoBehaviour
         }
 
         UIManager.Instance.FishUION();
-        GameManager.Instance.FishCamSetting(transform);
 
         isMousePointOn = _boolen;
 
@@ -177,7 +176,6 @@ public class FishBase : MonoBehaviour
         lineRenderer.enabled = true;
 
         fishManagerSO.currrentFish = fishInfo;
-        GameManager.Instance.FishCamSetting(transform);
 
         startPos = new Vector3(transform.position.x, transform.position.y, 0f);
         lineRenderer.SetPosition(0, startPos);

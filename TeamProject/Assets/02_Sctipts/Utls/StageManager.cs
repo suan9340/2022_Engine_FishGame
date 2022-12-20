@@ -99,7 +99,6 @@ public class StageManager : MonoBehaviour
 
             if (timerImage.fillAmount <= 0)
             {
-                GameManager.Instance.ResetFishCam();
                 isTimer = false;
                 GameManager.Instance.isClear = true;
                 UIManager.Instance.GameClearShowClear();

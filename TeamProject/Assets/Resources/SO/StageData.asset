@@ -12,41 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd5104fc2a9b6b4fb84ceff73a16962, type: 3}
   m_Name: StageData
   m_EditorClassIdentifier: 
-  currentStage: 2
+  currentStage: 1
   stageBase:
   - stageLevel: 1
-    maxTime: 5
-    sharkFirstTrn: {x: 11.01, y: 5.97, z: -4.78}
+    maxTime: 10
+    sharkFirstTrn: {x: 7.48, y: 6.41, z: 0}
   - stageLevel: 2
-    maxTime: 36.2
-    sharkFirstTrn: {x: 9.18, y: 1.55, z: -4.78}
+    maxTime: 10
+    sharkFirstTrn: {x: -8.67, y: -0.37, z: 0}
   - stageLevel: 3
-    maxTime: 4
-    sharkFirstTrn: {x: 11.01, y: 0.68, z: -4.78}
-  - stageLevel: 4
-    maxTime: 5
-    sharkFirstTrn: {x: -10.99, y: 1.31, z: -4.78}
-  - stageLevel: 5
-    maxTime: 5
-    sharkFirstTrn: {x: -10.99, y: 7.11, z: -4.78}
-  - stageLevel: 6
-    maxTime: 50
-    sharkFirstTrn: {x: 13.72, y: 3.2, z: -4.78}
-  - stageLevel: 7
-    maxTime: 50
-    sharkFirstTrn: {x: 11.01, y: 5.97, z: -4.78}
-  - stageLevel: 8
-    maxTime: 50
-    sharkFirstTrn: {x: 3.32, y: 2.69, z: -4.78}
-  - stageLevel: 9
-    maxTime: 50
-    sharkFirstTrn: {x: 3.32, y: 2.69, z: -4.78}
-  - stageLevel: 10
-    maxTime: 50
-    sharkFirstTrn: {x: 9.18, y: 4.33, z: -4.78}
-  - stageLevel: 11
-    maxTime: 50
-    sharkFirstTrn: {x: 9.18, y: 5.4, z: -4.78}
-  - stageLevel: 12
-    maxTime: 50
-    sharkFirstTrn: {x: 0, y: 0, z: 0}
+    maxTime: 15
+    sharkFirstTrn: {x: 0.49, y: 2.06, z: 0}

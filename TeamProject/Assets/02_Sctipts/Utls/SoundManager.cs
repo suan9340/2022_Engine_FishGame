@@ -31,6 +31,8 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip[] sound;
 
+    public AudioSource[] source;
+
     private void Start()
     {
         myAudio = GetComponent<AudioSource>();
@@ -39,5 +41,10 @@ public class SoundManager : MonoBehaviour
     public void PlayerAttackSound(int num)
     {
         myAudio.PlayOneShot(sound[num]);
+    }
+
+    public void ButtonClick()
+    {
+        source[0].Play();
     }
 }
