@@ -37,8 +37,11 @@ public class StageManager : MonoBehaviour
     [Header("InGameUI")]
     [SerializeField] private Image timerImage = null;
     [SerializeField] private float maxTime = 5f;
+
+    [Space(50)]
     [SerializeField] private Text currentLevelTxt = null;
     [SerializeField] private Text clearLevelTxt = null;
+    [SerializeField] private Text donClearLevelTxt = null;
     private bool isTimer = false;
     private bool isTimeStop = false;
 
@@ -53,6 +56,8 @@ public class StageManager : MonoBehaviour
     public void StagePlus()
     {
         clearLevelTxt.text = $"Level : {stageData.currentStage}";
+        donClearLevelTxt.text = $"Level : {stageData.currentStage}";
+
         stageData.currentStage++;
         timerImage.fillAmount = 1f;
 
@@ -64,6 +69,7 @@ public class StageManager : MonoBehaviour
         currentLvl = stageData.currentStage;
         arrLvl = stageData.currentStage - 1;
         currentLevelTxt.text = $"Level {currentLvl}";
+        donClearLevelTxt.text = $"Level : {stageData.currentStage}";
         maxTime = stageData.stageBase[arrLvl].maxTime;
     }
 

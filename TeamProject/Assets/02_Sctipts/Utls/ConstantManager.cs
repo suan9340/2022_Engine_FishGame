@@ -10,4 +10,6 @@ public static class ConstantManager
 
     public static string BACK_VOL = "backVolum";
     public static string VFX_VOL = "vfxVolum";
+
+    public static string FIRST_PLAY = "firstPlay";
 }

@@ -388,6 +388,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator GameDonDlearCorutine()
     {
+        if (gameClearObj.activeSelf) yield break;
         if (isUiMoving) yield break;
 
         isGameDonClear = !isGameDonClear;

@@ -48,11 +48,12 @@ public class GameManager : MonoBehaviour
 
     [Space(20)]
     public bool isClear = false;
+    public ParticleSystem danger = null;
+    public Vector3 dangerOffset = Vector3.zero;
 
     private void Start()
     {
-        //StageManager.Instance.InstantiateFishObj(sharkObj);
-        //Findfishies();
+       
     }
 
     public bool CheckCurrentFish()
@@ -126,10 +127,22 @@ public class GameManager : MonoBehaviour
 
 
         var _trn = fishs[_num].gameObject.transform.position;
+
+
+        danger.gameObject.transform.position = _trn + dangerOffset;
+        danger.gameObject.SetActive(true);
+        Invoke(nameof(DangerDown), 0.1f);
+
+
         _obj.transform.DOMove(_trn, sharkMoveSpeed).SetEase(Ease.InCubic);
 
 
         yield return new WaitForSeconds(sharkMoveSpeed);
+    }
+
+    public void DangerDown()
+    {
+        danger.gameObject.SetActive(true);
     }
 
     public void RemoveFishList(GameObject _value)

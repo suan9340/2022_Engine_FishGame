@@ -46,19 +46,7 @@ public class SoundManager : MonoBehaviour
 
         vfxVol = PlayerPrefs.GetFloat(ConstantManager.VFX_VOL, 1f);
         vfxSlider.value = vfxVol;
-        //vfxAudioSource.volume = vfxSlider.value;
     }
-
-    //public void PlayerAttackSound(int num)
-    //{
-    //    vfxAudioSource.PlayOneShot(sound[num]);
-    //}
-
-    //public void ButtonClick()
-    //{
-    //    source[0].Play();
-    //}
-
     public void SoundAudio(int _num)
     {
         vfxAudioSource[_num].volume = vfxVol;
