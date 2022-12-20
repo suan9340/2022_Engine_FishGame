@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efec9b63989d1cb488d1a49ab77d3285, type: 3}
   m_Name: Platinum
   m_EditorClassIdentifier: 
-  fishname: "Common\uBB3C\uACE0\uAE30"
+  fishname: "Platinum\uBB3C\uACE0\uAE30"
   rating: 2
   speed: 6
   outlineColor: {r: 0.30582055, g: 0.5318619, b: 0.7830189, a: 1}

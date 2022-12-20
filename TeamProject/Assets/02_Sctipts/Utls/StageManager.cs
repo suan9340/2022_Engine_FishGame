@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,7 +50,7 @@ public class StageManager : MonoBehaviour
         ConnectCurrentStage();
     }
 
-  public void StagePlus()
+    public void StagePlus()
     {
         clearLevelTxt.text = $"Level : {stageData.currentStage}";
         stageData.currentStage++;
@@ -87,15 +88,23 @@ public class StageManager : MonoBehaviour
 
         var _time = maxTime;
         timerImage.fillAmount = 1f;
-        Debug.Log(_time);
 
         while (true)
         {
             if (isTimeStop)
             {
                 isTimer = false;
+                _time = maxTime;
+                Debug.Log(_time);
                 yield break;
             }
+
+
+            if (GameManager.Instance.gameState == DefineManager.GameState.SETTING)
+            {
+                yield return new WaitWhile(() => GameManager.Instance.gameState != DefineManager.GameState.PLAYING);
+            }
+
 
             if (timerImage.fillAmount <= 0)
             {

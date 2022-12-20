@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efec9b63989d1cb488d1a49ab77d3285, type: 3}
   m_Name: Sliver
   m_EditorClassIdentifier: 
-  fishname: "Normal\uBB3C\uACE0\uAE30"
+  fishname: "Sliver\uBB3C\uACE0\uAE30"
   rating: 1
-  speed: 3
+  speed: 4
   outlineColor: {r: 0.6509804, g: 0.6627451, b: 0.6666667, a: 1}

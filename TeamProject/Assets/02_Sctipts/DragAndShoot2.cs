@@ -40,6 +40,8 @@ public class DragAndShoot2 : MonoBehaviour
     private bool isMousePointOn = false;
     private bool isCharging = false;
 
+    private int fishImageNum;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -115,18 +117,22 @@ public class DragAndShoot2 : MonoBehaviour
         {
             case DefineManager.FishRating.BRONZE:
                 fishInfo = Resources.Load<FishInformationSO>("SO/Bronze");
+                fishImageNum = 0;
                 break;
 
             case DefineManager.FishRating.SLIVER:
                 fishInfo = Resources.Load<FishInformationSO>("SO/Sliver");
+                fishImageNum = 1;
                 break;
 
             case DefineManager.FishRating.PLATINUM:
                 fishInfo = Resources.Load<FishInformationSO>("SO/Platinum");
+                fishImageNum = 2;
                 break;
 
             case DefineManager.FishRating.DIAMOND:
                 fishInfo = Resources.Load<FishInformationSO>("SO/Diamond");
+                fishImageNum = 3;
                 break;
         }
 
@@ -139,6 +145,7 @@ public class DragAndShoot2 : MonoBehaviour
         isCharging = true;
         fishManagerSO.currrentFish = fishInfo;
 
+        ParticleManager.Instance.AddParticle(ParticleManager.ParticleType.ScreenClick, transform.position);
         if (shootWhileMoving)
         {
             Vector2 dir = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -296,11 +303,10 @@ public class DragAndShoot2 : MonoBehaviour
 
         if (isMousePointOn == _boolen)
         {
-            Debug.Log("qwe");
             return;
         }
 
-        UIManager.Instance.FishUION();
+        UIManager.Instance.FishUION(fishImageNum);
 
         isMousePointOn = _boolen;
 

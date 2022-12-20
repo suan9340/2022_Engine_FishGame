@@ -136,7 +136,7 @@ public class FishBase : MonoBehaviour
             return;
         }
 
-        UIManager.Instance.FishUION();
+        UIManager.Instance.FishUION(0);
 
         isMousePointOn = _boolen;
 

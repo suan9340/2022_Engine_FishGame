@@ -34,6 +34,7 @@ public class ParticleManager : MonoBehaviour
     {
         BubbleParticle,
         FishDie,
+        ScreenClick,
     }
 
     /// <summary>
@@ -59,6 +60,13 @@ public class ParticleManager : MonoBehaviour
                 if (false == particleDic.ContainsKey(pt))
                 {
                     particleDic[pt] = Resources.Load<GameObject>("VFX/FishDie");
+                }
+                break;
+
+            case ParticleType.ScreenClick:
+                if (false == particleDic.ContainsKey(pt))
+                {
+                    particleDic[pt] = Resources.Load<GameObject>("VFX/Click");
                 }
                 break;
 

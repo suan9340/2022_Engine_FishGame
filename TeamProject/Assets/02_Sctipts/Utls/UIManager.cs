@@ -1,12 +1,10 @@
-using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using Unity.VisualScripting;
-using UnityEditorInternal;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -38,7 +36,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text fishName = null;
     [SerializeField] private Image fishColor = null;
     [SerializeField] private Image fishSpeed = null;
-    [SerializeField] private Image fishIcon = null;
     private bool isFishUI = false;
     [SerializeField] private List<Image> fishImages = new List<Image>();
 
@@ -78,7 +75,6 @@ public class UIManager : MonoBehaviour
     private bool isGameDonClear = false;
 
 
-
     private bool isSettingOn = false;
     private bool isReallySettingOn = false;
     private bool isUiMoving = false;
@@ -112,7 +108,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void FishUION()
+    public void FishUION(int _num)
     {
         isFishUI = !isFishUI;
 
@@ -122,10 +118,12 @@ public class UIManager : MonoBehaviour
             fishName.text = currentFishSO.mouseOnFish.fishname;
             fishSpeed.fillAmount = currentFishSO.mouseOnFish.speed / 10;
             fishColor.color = currentFishSO.mouseOnFish.outlineColor;
+            fishImages[_num].gameObject.SetActive(true);
         }
         else
         {
             fishInfoObject.SetActive(false);
+            fishImages[_num].gameObject.SetActive(false);
         }
     }
 
@@ -142,7 +140,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(gameCountTextCorutine(true));
 
         GameManager.Instance.Findfishies();
-        SoundManager.Instance.PlayerAttackSound(1); 
+        SoundManager.Instance.PlayerAttackSound(1);
 
     }
 
@@ -246,9 +244,9 @@ public class UIManager : MonoBehaviour
         float _alpha = 0;
         isUiMoving = true;
 
-        SoundManager.Instance.ButtonClick();
         if (isSettingOn)
         {
+            SoundManager.Instance.ButtonClick();
             GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
 
 
@@ -311,9 +309,9 @@ public class UIManager : MonoBehaviour
         float _alpha = 0;
         isUiMoving = true;
 
-        SoundManager.Instance.ButtonClick();
         if (isReallySettingOn)
         {
+            SoundManager.Instance.ButtonClick();
             ReallySettingDownObj.SetActive(true);
             _alpha = 0;
 
@@ -437,8 +435,17 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator ReLevelAnimationCorutine()
     {
-        yield return StartCoroutine(GameDonDlearCorutine());
+        yield return GameDonDlearCorutine();
 
+        yield return gameCountTextCorutine(false);
+
+        StageManager.Instance.ResetStage();
+
+        yield break;
+    }
+
+    public IEnumerator ReStartLevelCoroutine()
+    {
         yield return StartCoroutine(gameCountTextCorutine(false));
 
         StageManager.Instance.ResetStage();
@@ -507,11 +514,18 @@ public class UIManager : MonoBehaviour
     {
         if (ReallyOutSettingText.text == settingText[0])
         {
-            Debug.Log("메뉴로 나가기");
+            SceneManager.LoadScene(0);
         }
         else if (ReallyOutSettingText.text == settingText[1])
         {
             Debug.Log("스테이지 다시시작하기");
+
+
+            StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
+
+            GameManager.Instance.Findfishies();
+
+            StartCoroutine(ReStartLevelCoroutine());
         }
     }
 
@@ -562,22 +576,5 @@ public class UIManager : MonoBehaviour
 
         StartCoroutine(ReLevelAnimationCorutine());
 
-    }
-
-    public void SelectFishImage(int _num)
-    {
-        if (fishImages[0].gameObject.activeSelf)
-            fishImages[0].gameObject.SetActive(false);
-
-        if (fishImages[1].gameObject.activeSelf)
-            fishImages[1].gameObject.SetActive(false);
-
-        if (fishImages[2].gameObject.activeSelf)
-            fishImages[2].gameObject.SetActive(false);
-
-        if (fishImages[3].gameObject.activeSelf)
-            fishImages[3].gameObject.SetActive(false);
-
-        fishImages[_num].gameObject.SetActive(true);
     }
 }
