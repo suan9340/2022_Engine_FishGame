@@ -51,7 +51,7 @@ public class StageManager : MonoBehaviour
         stageData = Resources.Load<StageData>("SO/StageData");
         ConnectCurrentStage();
         fakerStage = stageData.stageBase.Count;
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
     }
 
     public void StagePlus()

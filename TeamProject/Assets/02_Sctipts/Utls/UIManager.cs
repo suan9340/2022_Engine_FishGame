@@ -167,8 +167,6 @@ public class UIManager : MonoBehaviour
         fishImages[1].gameObject.SetActive(false);
         fishImages[2].gameObject.SetActive(false);
         fishImages[3].gameObject.SetActive(false);
-
-        fishInfoObject.SetActive(false);
     }
 
     public void OnClickStart()
