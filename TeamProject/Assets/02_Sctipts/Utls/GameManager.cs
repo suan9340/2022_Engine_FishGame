@@ -1,10 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Jobs;
-using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
@@ -138,10 +135,10 @@ public class GameManager : MonoBehaviour
 
 
         _obj.transform.DOMove(_trn, sharkMoveSpeed).SetEase(Ease.InCubic);
-
-
+        
         yield return new WaitForSeconds(sharkMoveSpeed);
     }
+
 
     public void DangerDown()
     {

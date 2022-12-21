@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,6 +42,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Text donClearLevelTxt = null;
     private bool isTimer = false;
     private bool isTimeStop = false;
+    private int fakerStage = 0;
 
     [Space(50)]
     [SerializeField] private List<GameObject> LevelFishObj = null;
@@ -51,6 +50,8 @@ public class StageManager : MonoBehaviour
     {
         stageData = Resources.Load<StageData>("SO/StageData");
         ConnectCurrentStage();
+        fakerStage = stageData.stageBase.Count;
+        //PlayerPrefs.DeleteAll();
     }
 
     public void StagePlus()
@@ -58,10 +59,16 @@ public class StageManager : MonoBehaviour
         clearLevelTxt.text = $"Level : {stageData.currentStage}";
         donClearLevelTxt.text = $"Level : {stageData.currentStage}";
 
-        stageData.currentStage++;
-        timerImage.fillAmount = 1f;
-
+        if (stageData.currentStage >= stageData.stageBase.Count)
+        {
+            stageData.currentStage = Random.Range(0, stageData.stageBase.Count);
+        }
+        else
+        {
+            stageData.currentStage++;
+        }
         ConnectStagePlusStage();
+        timerImage.fillAmount = 1f;
     }
 
     public void ConnectCurrentStage()
@@ -112,7 +119,6 @@ public class StageManager : MonoBehaviour
                 yield break;
             }
 
-
             if (GameManager.Instance.gameState == DefineManager.GameState.SETTING)
             {
                 yield return new WaitWhile(() => GameManager.Instance.gameState != DefineManager.GameState.PLAYING);
@@ -123,6 +129,8 @@ public class StageManager : MonoBehaviour
             {
                 isTimer = false;
                 GameManager.Instance.isClear = true;
+                SoundManager.Instance.SoundAudio(5);
+                UIManager.Instance.FishiUIReset();
                 UIManager.Instance.GameClearShowClear();
                 yield break;
             }

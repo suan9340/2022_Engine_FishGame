@@ -78,8 +78,11 @@ public class UIManager : MonoBehaviour
     [Header("SulMung")]
     [SerializeField] private GameObject sulMunObject = null;
     public List<GameObject> tutoObj = new List<GameObject>();
+    public List<bool> tutonum = new List<bool>();
     public Button leftBtn = null;
     public Button rightBtn = null;
+    public Button tutoStartBtn = null;
+    public Image tutodelayImage = null;
 
     private int sulMungNum = 0;
     private GameObject lastObj = null;
@@ -112,17 +115,16 @@ public class UIManager : MonoBehaviour
 
         SettingSulMung();
 
-        isShowSulMung = true;
-        //isFirst = PlayerPrefs.GetInt(ConstantManager.FIRST_PLAY, 0);
+        isFirst = PlayerPrefs.GetInt(ConstantManager.FIRST_PLAY, 0);
 
-        //if (isFirst == 0)
-        //{
-        //    isShowSulMung = true;
-        //}
-        //else
-        //{
-        //    isShowSulMung = false;
-        //}
+        if (isFirst == 0)
+        {
+            isShowSulMung = true;
+        }
+        else
+        {
+            isShowSulMung = false;
+        }
 
     }
 
@@ -159,7 +161,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void FishiUIReset()
+    {
+        fishImages[0].gameObject.SetActive(false);
+        fishImages[1].gameObject.SetActive(false);
+        fishImages[2].gameObject.SetActive(false);
+        fishImages[3].gameObject.SetActive(false);
 
+        fishInfoObject.SetActive(false);
+    }
 
     public void OnClickStart()
     {
@@ -169,6 +179,8 @@ public class UIManager : MonoBehaviour
         {
             StartCoroutine(SulMungFadeCorutine());
             isShowSulMung = false;
+
+            StartCoroutine(TutoDelayTime(sulMungNum));
             return;
         }
         SoundManager.Instance.SoundAudio(2);
@@ -186,11 +198,20 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void OnCLickMulum()
+    {
+
+        StartCoroutine(SulMungFadeCorutine());
+        isShowSulMung = false;
+
+        StartCoroutine(TutoDelayTime(sulMungNum));
+    }
 
     public void OnClickTutoStart()
     {
         StartCoroutine(SulMungFadeCorutine());
         OnClickStart();
+        PlayerPrefs.SetInt(ConstantManager.FIRST_PLAY, 1);
     }
 
     public void OnClickExit()
@@ -240,6 +261,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.gameState == DefineManager.GameState.CLEAR) return;
 
+        SoundManager.Instance.GameDonClearSoundDown();
         fishInfoObject.SetActive(false);
         StageManager.Instance.StageStop();
         StartCoroutine(GameDonDlearCorutine());
@@ -584,6 +606,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickGoToMenu()
     {
+        SoundManager.Instance.SoundUP();
         ReallyOutSettingText.text = settingText[0];
 
         OnClickReallySettingOut();
@@ -639,6 +662,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickNextLevel()
     {
+        FishiUIReset();
+
         SoundManager.Instance.SoundAudio(0);
 
         StageManager.Instance.ConnectCurrentStage();
@@ -654,7 +679,11 @@ public class UIManager : MonoBehaviour
 
     public void OnClickGameDonClickRestart()
     {
+        SoundManager.Instance.SoundUP();
+
         SoundManager.Instance.SoundAudio(0);
+
+        FishiUIReset();
 
         StageManager.Instance.timeImageFill();
 
@@ -681,6 +710,13 @@ public class UIManager : MonoBehaviour
         {
             rightBtn.gameObject.SetActive(false);
         }
+
+        var _size = tutoObj.Count;
+
+        for (int i = 0; i < _size; i++)
+        {
+            tutonum.Add(false);
+        }
     }
 
     public void OnClickLeftBtn()
@@ -705,6 +741,9 @@ public class UIManager : MonoBehaviour
     {
         SoundManager.Instance.SoundAudio(0);
         ++sulMungNum;
+
+        StartCoroutine(TutoDelayTime(sulMungNum));
+
         if (sulMungNum >= tutoObj.Count - 1)
         {
             rightBtn.gameObject.SetActive(false);
@@ -724,5 +763,44 @@ public class UIManager : MonoBehaviour
 
         lastObj = tutoObj[sulMungNum].gameObject;
         lastObj.SetActive(true);
+    }
+
+    private IEnumerator TutoDelayTime(int _num)
+    {
+        if (tutonum[_num]) yield break;
+
+        if (_num == 5)
+        {
+            tutoStartBtn.interactable = false;
+        }
+
+        var _maxTime = 1.5f;
+        var _time = 0f;
+        tutodelayImage.fillAmount = 0f;
+
+        rightBtn.interactable = false;
+        leftBtn.interactable = false;
+
+        while (true)
+        {
+            if (tutodelayImage.fillAmount >= 1)
+            {
+                if (_num == 5)
+                {
+                    tutoStartBtn.interactable = true;
+                }
+
+                tutonum[_num] = true;
+
+                leftBtn.interactable = true;
+                rightBtn.interactable = true;
+
+                yield break;
+            }
+
+            _time += Time.deltaTime;
+            tutodelayImage.fillAmount = _time / _maxTime;
+            yield return null;
+        }
     }
 }

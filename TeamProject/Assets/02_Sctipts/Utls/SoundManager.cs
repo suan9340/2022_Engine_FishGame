@@ -68,4 +68,14 @@ public class SoundManager : MonoBehaviour
         vfxVol = vfxSlider.value;
         PlayerPrefs.SetFloat(ConstantManager.VFX_VOL, vfxVol);
     }
+
+    public void GameDonClearSoundDown()
+    {
+        bgmAudioSource.pitch = 0.85f;
+    }
+
+    public void SoundUP()
+    {
+        bgmAudioSource.pitch = 1f;
+    }
 }

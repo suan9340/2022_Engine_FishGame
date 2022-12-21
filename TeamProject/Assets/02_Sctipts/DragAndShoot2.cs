@@ -40,7 +40,7 @@ public class DragAndShoot2 : MonoBehaviour
     private bool isMousePointOn = false;
     private bool isCharging = false;
 
-    private int fishImageNum;
+    public int fishImageNum;
 
     void Start()
     {
@@ -103,6 +103,8 @@ public class DragAndShoot2 : MonoBehaviour
     {
         CheckFishOutline(true);
     }
+
+
     private void OnMouseExit()
     {
         if (!isCharging)
@@ -320,6 +322,7 @@ public class DragAndShoot2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag(ConstantManager.TAG_SHARK))
         {
+            if (GameManager.Instance.gameState != DefineManager.GameState.PLAYING) return;
             if (isDie || GameManager.Instance.isFishDie) return;
             isDie = true;
 
@@ -327,8 +330,9 @@ public class DragAndShoot2 : MonoBehaviour
             fishManagerSO.currrentFish = null;
 
             CheckFishOutline(false);
+            SoundManager.Instance.SoundAudio(6);
 
-
+            UIManager.Instance.FishiUIReset();
 
             Destroy(gameObject);
 
