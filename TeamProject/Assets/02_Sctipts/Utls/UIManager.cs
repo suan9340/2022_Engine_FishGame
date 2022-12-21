@@ -92,10 +92,6 @@ public class UIManager : MonoBehaviour
     private bool isReallySettingOn = false;
     private bool isUiMoving = false;
 
-    private int isFirst = 0;
-    private bool isShowSulMung = false;
-
-
 
     private void Awake()
     {
@@ -115,17 +111,7 @@ public class UIManager : MonoBehaviour
 
         SettingSulMung();
 
-        isFirst = PlayerPrefs.GetInt(ConstantManager.FIRST_PLAY, 0);
-
-        if (isFirst == 0)
-        {
-            isShowSulMung = true;
-        }
-        else
-        {
-            isShowSulMung = false;
-        }
-
+        Debug.Log(PlayerPrefs.GetInt(ConstantManager.FIRST_PLAY, 0));
     }
 
     private void Update()
@@ -173,34 +159,36 @@ public class UIManager : MonoBehaviour
     {
         SoundManager.Instance.SoundAudio(0);
 
-        if (isShowSulMung)
+        var _first = PlayerPrefs.GetInt(ConstantManager.FIRST_PLAY, 0);
+        if (_first == 0)
         {
+            PlayerPrefs.SetInt(ConstantManager.FIRST_PLAY, 1);
+
             StartCoroutine(SulMungFadeCorutine());
-            isShowSulMung = false;
 
             StartCoroutine(TutoDelayTime(sulMungNum));
             return;
         }
-        SoundManager.Instance.SoundAudio(2);
+        else
+        {
+            SoundManager.Instance.SoundAudio(2);
 
-        //gameStartImg.SetActive(false);
-        gameStartImg.transform.DOScale(new Vector3(9f, 9f, 9f), startAnimationSpeed).SetEase(Ease.Unset);
-        gameStartbackImg.DOFade(0f, startAnimationSpeed);
-        Invoke(nameof(StartGameState), startAnimationSpeed);
+            //gameStartImg.SetActive(false);
+            gameStartImg.transform.DOScale(new Vector3(9f, 9f, 9f), startAnimationSpeed).SetEase(Ease.Unset);
+            gameStartbackImg.DOFade(0f, startAnimationSpeed);
+            Invoke(nameof(StartGameState), startAnimationSpeed);
 
-        StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
+            StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
 
-        StartCoroutine(gameCountTextCorutine(true));
+            StartCoroutine(gameCountTextCorutine(true));
 
-        GameManager.Instance.Findfishies();
-
+            GameManager.Instance.Findfishies();
+        }
     }
 
     public void OnCLickMulum()
     {
-
         StartCoroutine(SulMungFadeCorutine());
-        isShowSulMung = false;
 
         StartCoroutine(TutoDelayTime(sulMungNum));
     }
@@ -209,7 +197,6 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(SulMungFadeCorutine());
         OnClickStart();
-        PlayerPrefs.SetInt(ConstantManager.FIRST_PLAY, 1);
     }
 
     public void OnClickExit()
@@ -783,7 +770,7 @@ public class UIManager : MonoBehaviour
         {
             if (tutodelayImage.fillAmount >= 1)
             {
-                if (_num == 5)
+                if (_num == tutoObj.Count - 1)
                 {
                     tutoStartBtn.interactable = true;
                 }
