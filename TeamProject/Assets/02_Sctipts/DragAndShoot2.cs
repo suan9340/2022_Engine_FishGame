@@ -323,6 +323,12 @@ public class DragAndShoot2 : MonoBehaviour
             if (isDie || GameManager.Instance.isFishDie) return;
             isDie = true;
 
+            isCharging = false;
+            fishManagerSO.currrentFish = null;
+
+            CheckFishOutline(false);
+
+
 
             Destroy(gameObject);
 
@@ -332,7 +338,6 @@ public class DragAndShoot2 : MonoBehaviour
             GameManager.Instance.ChangeGameState(DefineManager.GameState.DONTCLEAR);
             UIManager.Instance.FishAttackEffect();
 
-            fishManagerSO.currrentFish = null;
 
             SoundManager.Instance.SoundAudio(1);
             ParticleManager.Instance.AddParticle(ParticleManager.ParticleType.BubbleParticle, new Vector3(transform.position.x, transform.position.y, -2f));

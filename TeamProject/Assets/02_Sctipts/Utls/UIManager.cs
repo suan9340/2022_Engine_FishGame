@@ -50,7 +50,6 @@ public class UIManager : MonoBehaviour
     [Space(50)]
     [Header("InGameUI")]
     [SerializeField] private Text gameCountText = null;
-    [SerializeField] private Text levelText = null;
     [SerializeField] private Image attackEffectImage = null;
     private bool isCountDown = false;
 
@@ -75,15 +74,32 @@ public class UIManager : MonoBehaviour
     private bool isGameDonClear = false;
 
 
+    [Space(50)]
+    [Header("SulMung")]
+    [SerializeField] private GameObject sulMunObject = null;
+    public List<GameObject> tutoObj = new List<GameObject>();
+    public Button leftBtn = null;
+    public Button rightBtn = null;
+
+    private int sulMungNum = 0;
+    private GameObject lastObj = null;
+
     private bool isSettingOn = false;
+    private bool isSulmungFadOn = false;
     private bool isReallySettingOn = false;
     private bool isUiMoving = false;
+
+    private int isFirst = 0;
+    private bool isShowSulMung = false;
 
 
 
     private void Awake()
     {
         currentFishSO = Resources.Load<FishManagerSO>("SO/FishManager");
+
+        gameStartImg.gameObject.SetActive(true);
+        GameManager.Instance.ChangeGameState(DefineManager.GameState.MENU);
     }
 
     private void Start()
@@ -93,6 +109,21 @@ public class UIManager : MonoBehaviour
 
         SettingObj.GetComponent<CanvasGroup>().alpha = 0f;
         ReallySettingDownObj.GetComponent<CanvasGroup>().alpha = 0f;
+
+        SettingSulMung();
+
+        isShowSulMung = true;
+        //isFirst = PlayerPrefs.GetInt(ConstantManager.FIRST_PLAY, 0);
+
+        //if (isFirst == 0)
+        //{
+        //    isShowSulMung = true;
+        //}
+        //else
+        //{
+        //    isShowSulMung = false;
+        //}
+
     }
 
     private void Update()
@@ -128,8 +159,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
+
+
     public void OnClickStart()
     {
+        SoundManager.Instance.SoundAudio(0);
+
+        if (isShowSulMung)
+        {
+            StartCoroutine(SulMungFadeCorutine());
+            isShowSulMung = false;
+            return;
+        }
         SoundManager.Instance.SoundAudio(2);
 
         //gameStartImg.SetActive(false);
@@ -143,6 +184,13 @@ public class UIManager : MonoBehaviour
 
         GameManager.Instance.Findfishies();
 
+    }
+
+
+    public void OnClickTutoStart()
+    {
+        StartCoroutine(SulMungFadeCorutine());
+        OnClickStart();
     }
 
     public void OnClickExit()
@@ -192,7 +240,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.gameState == DefineManager.GameState.CLEAR) return;
 
-
+        fishInfoObject.SetActive(false);
         StageManager.Instance.StageStop();
         StartCoroutine(GameDonDlearCorutine());
     }
@@ -356,7 +404,6 @@ public class UIManager : MonoBehaviour
 
         if (isGameClear)
         {
-            levelText.gameObject.SetActive(false);
             StageManager.Instance.StagePlus();
 
             _alpha = 0;
@@ -380,6 +427,45 @@ public class UIManager : MonoBehaviour
 
             gameClearObj.SetActive(false);
             GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
+        }
+
+        isUiMoving = false;
+        yield break;
+    }
+
+    public IEnumerator SulMungFadeCorutine()
+    {
+        isSulmungFadOn = !isSulmungFadOn;
+
+        float _alpha = 0;
+        isUiMoving = true;
+
+
+        if (isSulmungFadOn)
+        {
+            GameManager.Instance.ChangeGameState(DefineManager.GameState.SETTING);
+
+            sulMunObject.SetActive(true);
+            _alpha = 0;
+            while (_alpha <= 1)
+            {
+                _alpha += 0.015f;
+                sulMunObject.GetComponent<CanvasGroup>().alpha = _alpha;
+                yield return null;
+            }
+        }
+        else
+        {
+            _alpha = 1;
+
+            while (_alpha >= 0)
+            {
+                _alpha -= 0.015f;
+                sulMunObject.GetComponent<CanvasGroup>().alpha = _alpha;
+                yield return null;
+            }
+
+            sulMunObject.SetActive(false);
         }
 
         isUiMoving = false;
@@ -555,13 +641,13 @@ public class UIManager : MonoBehaviour
     {
         SoundManager.Instance.SoundAudio(0);
 
+        StageManager.Instance.ConnectCurrentStage();
+
         GameManager.Instance.RemoveFishMomTransform();
 
         StageManager.Instance.InstantiateFishObj(GameManager.Instance.sharkObj);
 
         GameManager.Instance.Findfishies();
-
-        levelText.gameObject.SetActive(true);
 
         StartCoroutine(LevelAnimationCorutine());
     }
@@ -580,5 +666,63 @@ public class UIManager : MonoBehaviour
 
         StartCoroutine(ReLevelAnimationCorutine());
 
+    }
+
+    public void SettingSulMung()
+    {
+        lastObj = tutoObj[0].gameObject;
+        lastObj.SetActive(true);
+
+        if (sulMungNum <= 0)
+        {
+            leftBtn.gameObject.SetActive(false);
+        }
+        if (sulMungNum >= tutoObj.Count - 1)
+        {
+            rightBtn.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnClickLeftBtn()
+    {
+        SoundManager.Instance.SoundAudio(0);
+        --sulMungNum;
+        if (sulMungNum <= 0)
+        {
+            leftBtn.gameObject.SetActive(false);
+        }
+        else
+        {
+            rightBtn.gameObject.SetActive(true);
+            leftBtn.gameObject.SetActive(true);
+        }
+
+        ConnectUIObj();
+    }
+
+
+    public void OnClickRightBtn()
+    {
+        SoundManager.Instance.SoundAudio(0);
+        ++sulMungNum;
+        if (sulMungNum >= tutoObj.Count - 1)
+        {
+            rightBtn.gameObject.SetActive(false);
+        }
+        else
+        {
+            rightBtn.gameObject.SetActive(true);
+            leftBtn.gameObject.SetActive(true);
+        }
+
+        ConnectUIObj();
+    }
+
+    private void ConnectUIObj()
+    {
+        lastObj.SetActive(false);
+
+        lastObj = tutoObj[sulMungNum].gameObject;
+        lastObj.SetActive(true);
     }
 }

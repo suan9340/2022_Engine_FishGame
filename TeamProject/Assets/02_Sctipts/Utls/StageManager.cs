@@ -61,14 +61,22 @@ public class StageManager : MonoBehaviour
         stageData.currentStage++;
         timerImage.fillAmount = 1f;
 
-        ConnectCurrentStage();
+        ConnectStagePlusStage();
     }
 
     public void ConnectCurrentStage()
     {
         currentLvl = stageData.currentStage;
         arrLvl = stageData.currentStage - 1;
-        currentLevelTxt.text = $"Level {currentLvl}";
+        currentLevelTxt.text = $"{currentLvl}";
+        donClearLevelTxt.text = $"Level : {stageData.currentStage}";
+        maxTime = stageData.stageBase[arrLvl].maxTime;
+    }
+
+    private void ConnectStagePlusStage()
+    {
+        currentLvl = stageData.currentStage;
+        arrLvl = stageData.currentStage - 1;
         donClearLevelTxt.text = $"Level : {stageData.currentStage}";
         maxTime = stageData.stageBase[arrLvl].maxTime;
     }

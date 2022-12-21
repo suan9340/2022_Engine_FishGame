@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-       
+
     }
 
     public bool CheckCurrentFish()
@@ -120,8 +120,11 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator FishAttacks(GameObject _obj)
     {
-        if (gameState != DefineManager.GameState.PLAYING) yield break;
-
+        if (gameState != DefineManager.GameState.PLAYING)
+        {
+            DangerDown();
+            yield break;
+        }
         int _num = Random.Range(0, fishs.Count);
         SoundManager.Instance.SoundAudio(3);
 
@@ -131,7 +134,7 @@ public class GameManager : MonoBehaviour
 
         danger.gameObject.transform.position = _trn + dangerOffset;
         danger.gameObject.SetActive(true);
-        Invoke(nameof(DangerDown), 0.1f);
+        Invoke(nameof(DangerDown), 1.3f);
 
 
         _obj.transform.DOMove(_trn, sharkMoveSpeed).SetEase(Ease.InCubic);
@@ -142,7 +145,7 @@ public class GameManager : MonoBehaviour
 
     public void DangerDown()
     {
-        danger.gameObject.SetActive(true);
+        danger.gameObject.SetActive(false);
     }
 
     public void RemoveFishList(GameObject _value)
