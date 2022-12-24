@@ -101,6 +101,7 @@ public class DragAndShoot2 : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        UIManager.Instance.FishiUIReset();
         CheckFishOutline(true);
     }
 

@@ -174,7 +174,7 @@ public class UIManager : MonoBehaviour
             SoundManager.Instance.SoundAudio(2);
 
             //gameStartImg.SetActive(false);
-            gameStartImg.transform.DOScale(new Vector3(9f, 9f, 9f), startAnimationSpeed).SetEase(Ease.Unset);
+            gameStartImg.transform.DOScale(new Vector3(13f, 13f, 13f), startAnimationSpeed).SetEase(Ease.Unset);
             gameStartbackImg.DOFade(0f, startAnimationSpeed);
             Invoke(nameof(StartGameState), startAnimationSpeed);
 
